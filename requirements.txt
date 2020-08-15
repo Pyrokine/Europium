@@ -1,0 +1,17 @@
+bidict
+click
+flask
+flask-socketio
+gitpython
+itsdangerous
+jinja2
+loguru
+markupsafe
+numpy
+python-engineio
+python-socketio
+PySide6
+pandas
+paramiko
+pywinpty
+werkzeug

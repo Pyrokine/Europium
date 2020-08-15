@@ -1,0 +1,133 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>pyxterm.js</title>
+    <style>
+        html {
+            font-family: arial, serif;
+        }
+    </style>
+    <link
+            rel="stylesheet"
+            href="xterm.css"
+            {# 5.3.0 #}
+    />
+</head>
+<body style="background: #FAFAFA;">
+<a href="https://github.com/cs01/pyxtermjs" target="_blank" style="font-size: 1.4em; text-decoration: none; color:black">pyxterm.js</a><a>&nbsp;&nbsp;&nbsp;</a>
+<span style="font-size: small">
+    status:
+    <span style="font-size: small" id="status">connecting...</span>
+</span>
+
+<div style="width: 100%; height: calc(100% - 30px)" id="terminal"></div>
+
+<!-- xterm -->
+<script src="xterm.js"></script>
+{# 5.3.0 #}
+<script src="xterm-addon-fit.js"></script>
+{# 0.8.0 #}
+<script src="xterm-addon-web-links.js"></script>
+{# 0.9.0 #}
+<script src="xterm-addon-search.js"></script>
+{# 0.13.0 #}
+<script src="socket.io.js"></script>
+{# 4.7.2 #}
+
+<script>
+    const term = new Terminal({
+        cursorBlink: true,
+        macOptionIsMeta: true,
+        scrollback: 5000,
+        theme: {
+            foreground: 'black',
+            background: '#FAFAFA',
+            cursor: '#E0E0E0'
+        }
+    });
+    term.attachCustomKeyEventHandler(customKeyEventHandler);
+    // https://github.com/xtermjs/xterm.js/issues/2941
+    const fit = new FitAddon.FitAddon();
+    term.loadAddon(fit);
+    term.loadAddon(new WebLinksAddon.WebLinksAddon());
+    term.loadAddon(new SearchAddon.SearchAddon());
+
+    term.open(document.getElementById("terminal"));
+    fit.fit();
+    term.resize(15, 50);
+    console.log(`size: ${term.cols} columns, ${term.rows} rows`);
+    fit.fit();
+    term.onData((data) => {
+        console.log("browser terminal received new data:", data);
+        socket.emit("pty-input", {input: data});
+    });
+
+    const socket = io.connect("/pty");
+    const status = document.getElementById("status");
+
+    socket.on("pty-output", function (data) {
+        console.log("new output received from server:", data.output);
+        console.log(typeof (data.output));
+        term.write(data.output);
+    });
+
+    socket.on("connect", () => {
+        fitToScreen();
+        status.innerHTML = '<span style="background-color: lightgreen;">connected</span>';
+    });
+
+    socket.on("disconnect", () => {
+        status.innerHTML = '<span style="background-color: #FF8383;">disconnected</span>';
+    });
+
+    function fitToScreen() {
+        fit.fit();
+        const dims = {cols: term.cols, rows: term.rows};
+        console.log("sending new dimensions to server's pty", dims);
+        socket.emit("resize", dims);
+    }
+
+    function debounce(func, wait_ms) {
+        let timeout;
+        return function (...args) {
+            const context = this;
+            clearTimeout(timeout);
+            timeout = setTimeout(() => func.apply(context, args), wait_ms);
+        };
+    }
+
+    /**
+     * Handle copy and paste events
+     */
+    function customKeyEventHandler(e) {
+        if (e.type !== "keydown") {
+            return true;
+        }
+        if (e.ctrlKey && e.shiftKey) {
+            const key = e.key.toLowerCase();
+            if (key === "v") {
+                // ctrl+shift+v: paste whatever is in the clipboard
+                navigator.clipboard.readText().then((toPaste) => {
+                    term.writeText(toPaste);
+                });
+                return false;
+            } else if (key === "c" || key === "x") {
+                // ctrl+shift+x: copy whatever is highlighted to clipboard
+
+                // 'x' is used as an alternate to 'c' because ctrl+c is taken by the terminal (SIGINT)
+                // and ctrl+shift+c is taken by the browser (open devtools).
+                // I'm not aware of ctrl+shift+x being used by anything in the terminal or browser
+                const toCopy = term.getSelection();
+                navigator.clipboard.writeText(toCopy);
+                term.focus();
+                return false;
+            }
+        }
+        return true;
+    }
+
+    const wait_ms = 50;
+    window.onresize = debounce(fitToScreen, wait_ms);
+</script>
+</body>
+</html>
