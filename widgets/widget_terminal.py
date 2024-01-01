@@ -7,6 +7,11 @@ from third_party.pyxtermjs import app
 from widgets import widget_shortcut
 
 
+def io_read_callback(data):
+    pass
+    # print('callback', data)
+
+
 @common.singleton
 class Widget(widget_base.WidgetBase):
     def __init__(self, frame: widget_base.Frame):
@@ -38,11 +43,6 @@ class Widget(widget_base.WidgetBase):
 
         self.new_terminal(tab)
 
-    @staticmethod
-    def io_read_callback(data):
-        pass
-        # print('callback', data)
-
     def new_terminal(self, tab: widget_base.Tab) -> widget_base.Page:
         while True:
             if net_tools.is_port_in_use(port=self.terminal_port):
@@ -56,7 +56,7 @@ class Widget(widget_base.WidgetBase):
         )
         terminal.io = {
             'io_write': Queue(),
-            'io_read': self.io_read_callback
+            'io_read': io_read_callback
         }
         terminal.backend = Process(target=app.start, args=(self.terminal_port, terminal.io,))
         terminal.port = self.terminal_port

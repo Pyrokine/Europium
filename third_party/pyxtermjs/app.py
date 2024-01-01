@@ -1,13 +1,14 @@
 import argparse
+import os
 import platform
+import shlex
+import struct
+import subprocess
+from multiprocessing import Queue
 
+import select
 from flask import Flask, render_template
 from flask_socketio import SocketIO
-import subprocess
-import select
-import struct
-import shlex
-import os
 
 system_version = platform.system()
 
@@ -155,4 +156,4 @@ def start(port, io, host='127.0.0.1'):
     app.config['cmd'] = [args.command] + shlex.split(args.cmd_args)
 
     socketio.start_background_task(io_write, io['io_write'])
-    socketio.run(app, port=port, host=host, allow_unsafe_werkzeug=True)
+    socketio.run(app, port=port, host=host, use_reloader=False, log_output=False, allow_unsafe_werkzeug=True)

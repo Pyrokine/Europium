@@ -115,7 +115,10 @@
                 var e;
                 this._highlightTimeout && window.clearTimeout(this._highlightTimeout), this._cachedSearchTerm && (null === (e = this._lastSearchOptions) || void 0 === e ? void 0 : e.decorations) && (this._highlightTimeout = setTimeout((() => {
                     const e = this._cachedSearchTerm;
-                    this._cachedSearchTerm = void 0, this.findPrevious(e, Object.assign(Object.assign({}, this._lastSearchOptions), {incremental: !0, noScroll: !0}))
+                    this._cachedSearchTerm = void 0, this.findPrevious(e, Object.assign(Object.assign({}, this._lastSearchOptions), {
+                        incremental: !0,
+                        noScroll: !0
+                    }))
                 }), 200))
             }
 
@@ -234,7 +237,8 @@
                 if (null == h ? void 0 : h.isWrapped) return s ? void (t.startCol += o.cols) : (t.startRow--, t.startCol += o.cols, this._findInLine(e, t, i));
                 let a = null === (r = this._linesCache) || void 0 === r ? void 0 : r[n];
                 a || (a = this._translateBufferLineToStringWithWrap(n, !0), this._linesCache && (this._linesCache[n] = a));
-                const [c, d] = a, _ = this._bufferColsToStringOffset(n, l), u = i.caseSensitive ? e : e.toLowerCase(), f = i.caseSensitive ? c : c.toLowerCase();
+                const [c, d] = a, _ = this._bufferColsToStringOffset(n, l), u = i.caseSensitive ? e : e.toLowerCase(),
+                    f = i.caseSensitive ? c : c.toLowerCase();
                 let g = -1;
                 if (i.regex) {
                     const t = RegExp(u, "g");

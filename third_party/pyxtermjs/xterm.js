@@ -53,7 +53,8 @@
                 _renderRows(e, t) {
                     const i = this._terminal.buffer, s = i.lines.length.toString();
                     for (let r = e; r <= t; r++) {
-                        const e = i.translateBufferLineToString(i.ydisp + r, !0), t = (i.ydisp + r + 1).toString(), n = this._rowElements[r];
+                        const e = i.translateBufferLineToString(i.ydisp + r, !0), t = (i.ydisp + r + 1).toString(),
+                            n = this._rowElements[r];
                         n && (0 === e.length ? n.innerText = " " : n.textContent = e, n.setAttribute("aria-posinset", t), n.setAttribute("aria-setsize", s))
                     }
                     this._announceCharacters()
@@ -178,16 +179,16 @@
             Object.defineProperty(t, "__esModule", {value: !0}), t.Linkifier2 = void 0;
             const n = i(3656), o = i(8460), a = i(844), h = i(2585);
             let c = t.Linkifier2 = class extends a.Disposable {
-                get currentLink() {
-                    return this._currentLink
-                }
-
                 constructor(e) {
                     super(), this._bufferService = e, this._linkProviders = [], this._linkCacheDisposables = [], this._isMouseOut = !0, this._wasResized = !1, this._activeLine = -1, this._onShowLinkUnderline = this.register(new o.EventEmitter), this.onShowLinkUnderline = this._onShowLinkUnderline.event, this._onHideLinkUnderline = this.register(new o.EventEmitter), this.onHideLinkUnderline = this._onHideLinkUnderline.event, this.register((0, a.getDisposeArrayDisposable)(this._linkCacheDisposables)), this.register((0, a.toDisposable)((() => {
                         this._lastMouseEvent = void 0
                     }))), this.register(this._bufferService.onResize((() => {
                         this._clearCurrentLink(), this._wasResized = !0
                     })))
+                }
+
+                get currentLink() {
+                    return this._currentLink
                 }
 
                 registerLinkProvider(e) {
@@ -245,7 +246,8 @@
                     for (let s = 0; s < t.size; s++) {
                         const r = t.get(s);
                         if (r) for (let t = 0; t < r.length; t++) {
-                            const s = r[t], n = s.link.range.start.y < e ? 0 : s.link.range.start.x, o = s.link.range.end.y > e ? this._bufferService.cols : s.link.range.end.x;
+                            const s = r[t], n = s.link.range.start.y < e ? 0 : s.link.range.start.x,
+                                o = s.link.range.end.y > e ? this._bufferService.cols : s.link.range.end.x;
                             for (let e = n; e <= o; e++) {
                                 if (i.has(e)) {
                                     r.splice(t--, 1);
@@ -319,7 +321,8 @@
                         }
                     }), this._renderService && this._linkCacheDisposables.push(this._renderService.onRenderedViewportChange((e => {
                         if (!this._currentLink) return;
-                        const t = 0 === e.start ? 0 : e.start + 1 + this._bufferService.buffer.ydisp, i = this._bufferService.buffer.ydisp + 1 + e.end;
+                        const t = 0 === e.start ? 0 : e.start + 1 + this._bufferService.buffer.ydisp,
+                            i = this._bufferService.buffer.ydisp + 1 + e.end;
                         if (this._currentLink.link.range.start.y >= t && this._currentLink.link.range.end.y <= i && (this._clearCurrentLink(t, i), this._lastMouseEvent && this._element)) {
                             const e = this._positionFromMouseEvent(this._lastMouseEvent, this._element, this._mouseService);
                             e && this._askForLink(e, !1)
@@ -333,7 +336,8 @@
                 }
 
                 _fireUnderlineEvent(e, t) {
-                    const i = e.range, s = this._bufferService.buffer.ydisp, r = this._createLinkUnderlineEvent(i.start.x - 1, i.start.y - s - 1, i.end.x, i.end.y - s - 1, void 0);
+                    const i = e.range, s = this._bufferService.buffer.ydisp,
+                        r = this._createLinkUnderlineEvent(i.start.x - 1, i.start.y - s - 1, i.end.x, i.end.y - s - 1, void 0);
                     (t ? this._onShowLinkUnderline : this._onHideLinkUnderline).fire(r)
                 }
 
@@ -343,7 +347,8 @@
                 }
 
                 _linkAtPosition(e, t) {
-                    const i = e.range.start.y * this._bufferService.cols + e.range.start.x, s = e.range.end.y * this._bufferService.cols + e.range.end.x, r = t.y * this._bufferService.cols + t.x;
+                    const i = e.range.start.y * this._bufferService.cols + e.range.start.x,
+                        s = e.range.end.y * this._bufferService.cols + e.range.end.x, r = t.y * this._bufferService.cols + t.x;
                     return i <= r && r <= s
                 }
 
@@ -491,11 +496,20 @@
             t.ScreenDprMonitor = r
         }, 3236: (e, t, i) => {
             Object.defineProperty(t, "__esModule", {value: !0}), t.Terminal = void 0;
-            const s = i(3614), r = i(3656), n = i(6465), o = i(9042), a = i(3730), h = i(1680), c = i(3107), l = i(5744), d = i(2950), _ = i(1296), u = i(428), f = i(4269), v = i(5114), p = i(8934),
-                g = i(3230), m = i(9312), S = i(4725), C = i(6731), b = i(8055), y = i(8969), w = i(8460), E = i(844), k = i(6114), L = i(8437), D = i(2584), R = i(7399), x = i(5941), A = i(9074),
+            const s = i(3614), r = i(3656), n = i(6465), o = i(9042), a = i(3730), h = i(1680), c = i(3107), l = i(5744), d = i(2950),
+                _ = i(1296), u = i(428), f = i(4269), v = i(5114), p = i(8934),
+                g = i(3230), m = i(9312), S = i(4725), C = i(6731), b = i(8055), y = i(8969), w = i(8460), E = i(844), k = i(6114),
+                L = i(8437), D = i(2584), R = i(7399), x = i(5941), A = i(9074),
                 B = i(2585), T = i(5435), M = i(4567), O = "undefined" != typeof window ? window.document : null;
 
             class P extends y.CoreTerminal {
+                constructor(e = {}) {
+                    super(e), this.browser = k, this._keyDownHandled = !1, this._keyDownSeen = !1, this._keyPressHandled = !1, this._unprocessedDeadKey = !1, this._accessibilityManager = this.register(new E.MutableDisposable), this._onCursorMove = this.register(new w.EventEmitter), this.onCursorMove = this._onCursorMove.event, this._onKey = this.register(new w.EventEmitter), this.onKey = this._onKey.event, this._onRender = this.register(new w.EventEmitter), this.onRender = this._onRender.event, this._onSelectionChange = this.register(new w.EventEmitter), this.onSelectionChange = this._onSelectionChange.event, this._onTitleChange = this.register(new w.EventEmitter), this.onTitleChange = this._onTitleChange.event, this._onBell = this.register(new w.EventEmitter), this.onBell = this._onBell.event, this._onFocus = this.register(new w.EventEmitter), this._onBlur = this.register(new w.EventEmitter), this._onA11yCharEmitter = this.register(new w.EventEmitter), this._onA11yTabEmitter = this.register(new w.EventEmitter), this._onWillOpen = this.register(new w.EventEmitter), this._setup(), this.linkifier2 = this.register(this._instantiationService.createInstance(n.Linkifier2)), this.linkifier2.registerLinkProvider(this._instantiationService.createInstance(a.OscLinkProvider)), this._decorationService = this._instantiationService.createInstance(A.DecorationService), this._instantiationService.setService(B.IDecorationService, this._decorationService), this.register(this._inputHandler.onRequestBell((() => this._onBell.fire()))), this.register(this._inputHandler.onRequestRefreshRows(((e, t) => this.refresh(e, t)))), this.register(this._inputHandler.onRequestSendFocus((() => this._reportFocus()))), this.register(this._inputHandler.onRequestReset((() => this.reset()))), this.register(this._inputHandler.onRequestWindowsOptionsReport((e => this._reportWindowsOptions(e)))), this.register(this._inputHandler.onColor((e => this._handleColorEvent(e)))), this.register((0, w.forwardEvent)(this._inputHandler.onCursorMove, this._onCursorMove)), this.register((0, w.forwardEvent)(this._inputHandler.onTitleChange, this._onTitleChange)), this.register((0, w.forwardEvent)(this._inputHandler.onA11yChar, this._onA11yCharEmitter)), this.register((0, w.forwardEvent)(this._inputHandler.onA11yTab, this._onA11yTabEmitter)), this.register(this._bufferService.onResize((e => this._afterResize(e.cols, e.rows)))), this.register((0, E.toDisposable)((() => {
+                        var e, t;
+                        this._customKeyEventHandler = void 0, null === (t = null === (e = this.element) || void 0 === e ? void 0 : e.parentNode) || void 0 === t || t.removeChild(this.element)
+                    })))
+                }
+
                 get onFocus() {
                     return this._onFocus.event
                 }
@@ -516,11 +530,12 @@
                     return this._onWillOpen.event
                 }
 
-                constructor(e = {}) {
-                    super(e), this.browser = k, this._keyDownHandled = !1, this._keyDownSeen = !1, this._keyPressHandled = !1, this._unprocessedDeadKey = !1, this._accessibilityManager = this.register(new E.MutableDisposable), this._onCursorMove = this.register(new w.EventEmitter), this.onCursorMove = this._onCursorMove.event, this._onKey = this.register(new w.EventEmitter), this.onKey = this._onKey.event, this._onRender = this.register(new w.EventEmitter), this.onRender = this._onRender.event, this._onSelectionChange = this.register(new w.EventEmitter), this.onSelectionChange = this._onSelectionChange.event, this._onTitleChange = this.register(new w.EventEmitter), this.onTitleChange = this._onTitleChange.event, this._onBell = this.register(new w.EventEmitter), this.onBell = this._onBell.event, this._onFocus = this.register(new w.EventEmitter), this._onBlur = this.register(new w.EventEmitter), this._onA11yCharEmitter = this.register(new w.EventEmitter), this._onA11yTabEmitter = this.register(new w.EventEmitter), this._onWillOpen = this.register(new w.EventEmitter), this._setup(), this.linkifier2 = this.register(this._instantiationService.createInstance(n.Linkifier2)), this.linkifier2.registerLinkProvider(this._instantiationService.createInstance(a.OscLinkProvider)), this._decorationService = this._instantiationService.createInstance(A.DecorationService), this._instantiationService.setService(B.IDecorationService, this._decorationService), this.register(this._inputHandler.onRequestBell((() => this._onBell.fire()))), this.register(this._inputHandler.onRequestRefreshRows(((e, t) => this.refresh(e, t)))), this.register(this._inputHandler.onRequestSendFocus((() => this._reportFocus()))), this.register(this._inputHandler.onRequestReset((() => this.reset()))), this.register(this._inputHandler.onRequestWindowsOptionsReport((e => this._reportWindowsOptions(e)))), this.register(this._inputHandler.onColor((e => this._handleColorEvent(e)))), this.register((0, w.forwardEvent)(this._inputHandler.onCursorMove, this._onCursorMove)), this.register((0, w.forwardEvent)(this._inputHandler.onTitleChange, this._onTitleChange)), this.register((0, w.forwardEvent)(this._inputHandler.onA11yChar, this._onA11yCharEmitter)), this.register((0, w.forwardEvent)(this._inputHandler.onA11yTab, this._onA11yTabEmitter)), this.register(this._bufferService.onResize((e => this._afterResize(e.cols, e.rows)))), this.register((0, E.toDisposable)((() => {
-                        var e, t;
-                        this._customKeyEventHandler = void 0, null === (t = null === (e = this.element) || void 0 === e ? void 0 : e.parentNode) || void 0 === t || t.removeChild(this.element)
-                    })))
+                get buffer() {
+                    return this.buffers.active
+                }
+
+                get markers() {
+                    return this.buffer.markers
                 }
 
                 _handleColorEvent(e) {
@@ -560,10 +575,6 @@
                     super._setup(), this._customKeyEventHandler = void 0
                 }
 
-                get buffer() {
-                    return this.buffers.active
-                }
-
                 focus() {
                     this.textarea && this.textarea.focus({preventScroll: !0})
                 }
@@ -589,8 +600,10 @@
                     if (!this.textarea || !this.buffer.isCursorInViewport || this._compositionHelper.isComposing || !this._renderService) return;
                     const e = this.buffer.ybase + this.buffer.y, t = this.buffer.lines.get(e);
                     if (!t) return;
-                    const i = Math.min(this.buffer.x, this.cols - 1), s = this._renderService.dimensions.css.cell.height, r = t.getWidth(i), n = this._renderService.dimensions.css.cell.width * r,
-                        o = this.buffer.y * this._renderService.dimensions.css.cell.height, a = i * this._renderService.dimensions.css.cell.width;
+                    const i = Math.min(this.buffer.x, this.cols - 1), s = this._renderService.dimensions.css.cell.height, r = t.getWidth(i),
+                        n = this._renderService.dimensions.css.cell.width * r,
+                        o = this.buffer.y * this._renderService.dimensions.css.cell.height,
+                        a = i * this._renderService.dimensions.css.cell.width;
                     this.textarea.style.left = a + "px", this.textarea.style.top = o + "px", this.textarea.style.width = n + "px", this.textarea.style.height = s + "px", this.textarea.style.lineHeight = s + "px", this.textarea.style.zIndex = "-5"
                 }
 
@@ -749,10 +762,6 @@
                     this._characterJoinerService.deregister(e) && this.refresh(0, this.rows - 1)
                 }
 
-                get markers() {
-                    return this.buffer.markers
-                }
-
                 registerMarker(e) {
                     return this.buffer.addMarker(this.buffer.ybase + this.buffer.y + e)
                 }
@@ -860,7 +869,10 @@
                     if (0 !== this.buffer.ybase || 0 !== this.buffer.y) {
                         this.buffer.clearAllMarkers(), this.buffer.lines.set(0, this.buffer.lines.get(this.buffer.ybase + this.buffer.y)), this.buffer.lines.length = 1, this.buffer.ydisp = 0, this.buffer.ybase = 0, this.buffer.y = 0;
                         for (let e = 1; e < this.rows; e++) this.buffer.lines.push(this.buffer.getBlankLine(L.DEFAULT_ATTR_DATA));
-                        this._onScroll.fire({position: this.buffer.ydisp, source: 0}), null === (e = this.viewport) || void 0 === e || e.reset(), this.refresh(0, this.rows - 1)
+                        this._onScroll.fire({
+                            position: this.buffer.ydisp,
+                            source: 0
+                        }), null === (e = this.viewport) || void 0 === e || e.reset(), this.refresh(0, this.rows - 1)
                     }
                 }
 
@@ -884,11 +896,13 @@
                 _reportWindowsOptions(e) {
                     if (this._renderService) switch (e) {
                         case T.WindowsOptionsReportType.GET_WIN_SIZE_PIXELS:
-                            const e = this._renderService.dimensions.css.canvas.width.toFixed(0), t = this._renderService.dimensions.css.canvas.height.toFixed(0);
+                            const e = this._renderService.dimensions.css.canvas.width.toFixed(0),
+                                t = this._renderService.dimensions.css.canvas.height.toFixed(0);
                             this.coreService.triggerDataEvent(`${D.C0.ESC}[4;${t};${e}t`);
                             break;
                         case T.WindowsOptionsReportType.GET_CELL_SIZE_PIXELS:
-                            const i = this._renderService.dimensions.css.cell.width.toFixed(0), s = this._renderService.dimensions.css.cell.height.toFixed(0);
+                            const i = this._renderService.dimensions.css.cell.width.toFixed(0),
+                                s = this._renderService.dimensions.css.cell.height.toFixed(0);
                             this.coreService.triggerDataEvent(`${D.C0.ESC}[6;${s};${i}t`)
                     }
                 }
@@ -977,7 +991,10 @@
 
                 _handleScroll(e) {
                     if (this._lastScrollTop = this._viewportElement.scrollTop, !this._viewportElement.offsetParent) return;
-                    if (this._ignoreNextScrollEvent) return this._ignoreNextScrollEvent = !1, void this._onRequestScrollLines.fire({amount: 0, suppressScrollEvent: !0});
+                    if (this._ignoreNextScrollEvent) return this._ignoreNextScrollEvent = !1, void this._onRequestScrollLines.fire({
+                        amount: 0,
+                        suppressScrollEvent: !0
+                    });
                     const t = Math.round(this._lastScrollTop / this._currentRowHeight) - this._bufferService.buffer.ydisp;
                     this._onRequestScrollLines.fire({amount: t, suppressScrollEvent: !0})
                 }
@@ -1128,7 +1145,12 @@
         }, 5871: (e, t) => {
             Object.defineProperty(t, "__esModule", {value: !0}), t.ColorZoneStore = void 0, t.ColorZoneStore = class {
                 constructor() {
-                    this._zones = [], this._zonePool = [], this._zonePoolIndex = 0, this._linePadding = {full: 0, left: 0, center: 0, right: 0}
+                    this._zones = [], this._zonePool = [], this._zonePoolIndex = 0, this._linePadding = {
+                        full: 0,
+                        left: 0,
+                        center: 0,
+                        right: 0
+                    }
                 }
 
                 get zones() {
@@ -1182,13 +1204,10 @@
                 }
             };
             Object.defineProperty(t, "__esModule", {value: !0}), t.OverviewRulerRenderer = void 0;
-            const n = i(5871), o = i(3656), a = i(4725), h = i(844), c = i(2585), l = {full: 0, left: 0, center: 0, right: 0}, d = {full: 0, left: 0, center: 0, right: 0},
+            const n = i(5871), o = i(3656), a = i(4725), h = i(844), c = i(2585), l = {full: 0, left: 0, center: 0, right: 0},
+                d = {full: 0, left: 0, center: 0, right: 0},
                 _ = {full: 0, left: 0, center: 0, right: 0};
             let u = t.OverviewRulerRenderer = class extends h.Disposable {
-                get _width() {
-                    return this._optionsService.options.overviewRulerWidth || 0
-                }
-
                 constructor(e, t, i, s, r, o, a) {
                     var c;
                     super(), this._viewportElement = e, this._screenElement = t, this._bufferService = i, this._decorationService = s, this._renderService = r, this._optionsService = o, this._coreBrowseService = a, this._colorZoneStore = new n.ColorZoneStore, this._shouldUpdateDimensions = !0, this._shouldUpdateAnchor = !0, this._lastKnownBufferLength = 0, this._canvas = document.createElement("canvas"), this._canvas.classList.add("xterm-decoration-overview-ruler"), this._refreshCanvasDimensions(), null === (c = this._viewportElement.parentElement) || void 0 === c || c.insertBefore(this._canvas, this._viewportElement);
@@ -1198,6 +1217,10 @@
                         var e;
                         null === (e = this._canvas) || void 0 === e || e.remove()
                     })))
+                }
+
+                get _width() {
+                    return this._optionsService.options.overviewRulerWidth || 0
                 }
 
                 _registerDecorationListeners() {
@@ -1225,7 +1248,8 @@
 
                 _refreshDrawHeightConstants() {
                     l.full = Math.round(2 * this._coreBrowseService.dpr);
-                    const e = this._canvas.height / this._bufferService.buffer.lines.length, t = Math.round(Math.max(Math.min(e, 12), 6) * this._coreBrowseService.dpr);
+                    const e = this._canvas.height / this._bufferService.buffer.lines.length,
+                        t = Math.round(Math.max(Math.min(e, 12), 6) * this._coreBrowseService.dpr);
                     l.left = t, l.center = t, l.right = t
                 }
 
@@ -1276,15 +1300,15 @@
             Object.defineProperty(t, "__esModule", {value: !0}), t.CompositionHelper = void 0;
             const n = i(4725), o = i(2585), a = i(2584);
             let h = t.CompositionHelper = class {
-                get isComposing() {
-                    return this._isComposing
-                }
-
                 constructor(e, t, i, s, r, n) {
                     this._textarea = e, this._compositionView = t, this._bufferService = i, this._optionsService = s, this._coreService = r, this._renderService = n, this._isComposing = !1, this._isSendingComposition = !1, this._compositionPosition = {
                         start: 0,
                         end: 0
                     }, this._dataAlreadySent = ""
+                }
+
+                get isComposing() {
+                    return this._isComposing
                 }
 
                 compositionstart() {
@@ -1339,8 +1363,10 @@
                 updateCompositionElements(e) {
                     if (this._isComposing) {
                         if (this._bufferService.buffer.isCursorInViewport) {
-                            const e = Math.min(this._bufferService.buffer.x, this._bufferService.cols - 1), t = this._renderService.dimensions.css.cell.height,
-                                i = this._bufferService.buffer.y * this._renderService.dimensions.css.cell.height, s = e * this._renderService.dimensions.css.cell.width;
+                            const e = Math.min(this._bufferService.buffer.x, this._bufferService.cols - 1),
+                                t = this._renderService.dimensions.css.cell.height,
+                                i = this._bufferService.buffer.y * this._renderService.dimensions.css.cell.height,
+                                s = e * this._renderService.dimensions.css.cell.width;
                             this._compositionView.style.left = s + "px", this._compositionView.style.top = i + "px", this._compositionView.style.height = t + "px", this._compositionView.style.lineHeight = t + "px", this._compositionView.style.fontFamily = this._optionsService.rawOptions.fontFamily, this._compositionView.style.fontSize = this._optionsService.rawOptions.fontSize + "px";
                             const r = this._compositionView.getBoundingClientRect();
                             this._textarea.style.left = s + "px", this._textarea.style.top = i + "px", this._textarea.style.width = Math.max(r.width, 1) + "px", this._textarea.style.height = Math.max(r.height, 1) + "px", this._textarea.style.lineHeight = r.height + "px"
@@ -1352,7 +1378,8 @@
             t.CompositionHelper = h = s([r(2, o.IBufferService), r(3, o.IOptionsService), r(4, o.ICoreService), r(5, n.IRenderService)], h)
         }, 9806: (e, t) => {
             function i(e, t, i) {
-                const s = i.getBoundingClientRect(), r = e.getComputedStyle(i), n = parseInt(r.getPropertyValue("padding-left")), o = parseInt(r.getPropertyValue("padding-top"));
+                const s = i.getBoundingClientRect(), r = e.getComputedStyle(i), n = parseInt(r.getPropertyValue("padding-left")),
+                    o = parseInt(r.getPropertyValue("padding-top"));
                 return [t.clientX - s.left - n, t.clientY - s.top - o]
             }
 
@@ -1438,13 +1465,18 @@
                 }
             };
             Object.defineProperty(t, "__esModule", {value: !0}), t.DomRenderer = void 0;
-            const n = i(3787), o = i(2550), a = i(2223), h = i(6171), c = i(4725), l = i(8055), d = i(8460), _ = i(844), u = i(2585), f = "xterm-dom-renderer-owner-", v = "xterm-rows",
+            const n = i(3787), o = i(2550), a = i(2223), h = i(6171), c = i(4725), l = i(8055), d = i(8460), _ = i(844), u = i(2585),
+                f = "xterm-dom-renderer-owner-", v = "xterm-rows",
                 p = "xterm-fg-", g = "xterm-bg-", m = "xterm-focus", S = "xterm-selection";
             let C = 1, b = t.DomRenderer = class extends _.Disposable {
                 constructor(e, t, i, s, r, a, c, l, u, p) {
                     super(), this._element = e, this._screenElement = t, this._viewportElement = i, this._linkifier2 = s, this._charSizeService = a, this._optionsService = c, this._bufferService = l, this._coreBrowserService = u, this._themeService = p, this._terminalClass = C++, this._rowElements = [], this.onRequestRedraw = this.register(new d.EventEmitter).event, this._rowContainer = document.createElement("div"), this._rowContainer.classList.add(v), this._rowContainer.style.lineHeight = "normal", this._rowContainer.setAttribute("aria-hidden", "true"), this._refreshRowElements(this._bufferService.cols, this._bufferService.rows), this._selectionContainer = document.createElement("div"), this._selectionContainer.classList.add(S), this._selectionContainer.setAttribute("aria-hidden", "true"), this.dimensions = (0, h.createRenderDimensions)(), this._updateDimensions(), this.register(this._optionsService.onOptionChange((() => this._handleOptionsChanged()))), this.register(this._themeService.onChangeColors((e => this._injectCss(e)))), this._injectCss(this._themeService.colors), this._rowFactory = r.createInstance(n.DomRendererRowFactory, document), this._element.classList.add(f + this._terminalClass), this._screenElement.appendChild(this._rowContainer), this._screenElement.appendChild(this._selectionContainer), this.register(this._linkifier2.onShowLinkUnderline((e => this._handleLinkHover(e)))), this.register(this._linkifier2.onHideLinkUnderline((e => this._handleLinkLeave(e)))), this.register((0, _.toDisposable)((() => {
                         this._element.classList.remove(f + this._terminalClass), this._rowContainer.remove(), this._selectionContainer.remove(), this._widthCache.dispose(), this._themeStyleElement.remove(), this._dimensionsStyleElement.remove()
                     }))), this._widthCache = new o.WidthCache(document), this._widthCache.setFont(this._optionsService.rawOptions.fontFamily, this._optionsService.rawOptions.fontSize, this._optionsService.rawOptions.fontWeight, this._optionsService.rawOptions.fontWeightBold), this._setDefaultSpacing()
+                }
+
+                get _terminalSelector() {
+                    return `.${f}${this._terminalClass}`
                 }
 
                 _updateDimensions() {
@@ -1499,7 +1531,8 @@
 
                 handleSelectionChanged(e, t, i) {
                     if (this._selectionContainer.replaceChildren(), this._rowFactory.handleSelectionChanged(e, t, i), this.renderRows(0, this._bufferService.rows - 1), !e || !t) return;
-                    const s = e[1] - this._bufferService.buffer.ydisp, r = t[1] - this._bufferService.buffer.ydisp, n = Math.max(s, 0), o = Math.min(r, this._bufferService.rows - 1);
+                    const s = e[1] - this._bufferService.buffer.ydisp, r = t[1] - this._bufferService.buffer.ydisp, n = Math.max(s, 0),
+                        o = Math.min(r, this._bufferService.rows - 1);
                     if (n >= this._bufferService.rows || o < 0) return;
                     const a = document.createDocumentFragment();
                     if (i) {
@@ -1534,17 +1567,14 @@
                 }
 
                 renderRows(e, t) {
-                    const i = this._bufferService.buffer, s = i.ybase + i.y, r = Math.min(i.x, this._bufferService.cols - 1), n = this._optionsService.rawOptions.cursorBlink,
+                    const i = this._bufferService.buffer, s = i.ybase + i.y, r = Math.min(i.x, this._bufferService.cols - 1),
+                        n = this._optionsService.rawOptions.cursorBlink,
                         o = this._optionsService.rawOptions.cursorStyle, a = this._optionsService.rawOptions.cursorInactiveStyle;
                     for (let h = e; h <= t; h++) {
                         const e = h + i.ydisp, t = this._rowElements[h], c = i.lines.get(e);
                         if (!t || !c) break;
                         t.replaceChildren(...this._rowFactory.createRow(c, e, e === s, o, a, r, n, this.dimensions.css.cell.width, this._widthCache, -1, -1))
                     }
-                }
-
-                get _terminalSelector() {
-                    return `.${f}${this._terminalClass}`
                 }
 
                 _handleLinkHover(e) {
@@ -1559,7 +1589,8 @@
                     i < 0 && (e = 0), s < 0 && (t = 0);
                     const o = this._bufferService.rows - 1;
                     i = Math.max(Math.min(i, o), 0), s = Math.max(Math.min(s, o), 0), r = Math.min(r, this._bufferService.cols);
-                    const a = this._bufferService.buffer, h = a.ybase + a.y, c = Math.min(a.x, r - 1), l = this._optionsService.rawOptions.cursorBlink, d = this._optionsService.rawOptions.cursorStyle,
+                    const a = this._bufferService.buffer, h = a.ybase + a.y, c = Math.min(a.x, r - 1),
+                        l = this._optionsService.rawOptions.cursorBlink, d = this._optionsService.rawOptions.cursorStyle,
                         _ = this._optionsService.rawOptions.cursorInactiveStyle;
                     for (let o = i; o <= s; ++o) {
                         const u = o + a.ydisp, f = this._rowElements[o], v = a.lines.get(u);
@@ -1779,10 +1810,6 @@
                     this._bufferService = e, this.isSelectAllActive = !1, this.selectionStartLength = 0
                 }
 
-                clearSelection() {
-                    this.selectionStart = void 0, this.selectionEnd = void 0, this.isSelectAllActive = !1, this.selectionStartLength = 0
-                }
-
                 get finalSelectionStart() {
                     return this.isSelectAllActive ? [0, 0] : this.selectionEnd && this.selectionStart && this.areSelectionValuesReversed() ? this.selectionEnd : this.selectionStart
                 }
@@ -1800,6 +1827,10 @@
                         }
                         return this.selectionEnd
                     }
+                }
+
+                clearSelection() {
+                    this.selectionStart = void 0, this.selectionEnd = void 0, this.isSelectAllActive = !1, this.selectionStartLength = 0
                 }
 
                 areSelectionValuesReversed() {
@@ -1824,12 +1855,12 @@
             Object.defineProperty(t, "__esModule", {value: !0}), t.CharSizeService = void 0;
             const n = i(2585), o = i(8460), a = i(844);
             let h = t.CharSizeService = class extends a.Disposable {
-                get hasValidSize() {
-                    return this.width > 0 && this.height > 0
-                }
-
                 constructor(e, t, i) {
                     super(), this._optionsService = i, this.width = 0, this.height = 0, this._onCharSizeChange = this.register(new o.EventEmitter), this.onCharSizeChange = this._onCharSizeChange.event, this._measureStrategy = new c(e, t, this._optionsService), this.register(this._optionsService.onMultipleOptionChange(["fontFamily", "fontSize"], (() => this.measure())))
+                }
+
+                get hasValidSize() {
+                    return this.width > 0 && this.height > 0
                 }
 
                 measure() {
@@ -1902,6 +1933,23 @@
                     this._bufferService = e, this._characterJoiners = [], this._nextCharacterJoinerId = 0, this._workCell = new a.CellData
                 }
 
+                static _mergeRanges(e, t) {
+                    let i = !1;
+                    for (let s = 0; s < e.length; s++) {
+                        const r = e[s];
+                        if (i) {
+                            if (t[1] <= r[0]) return e[s - 1][1] = t[1], e;
+                            if (t[1] <= r[1]) return e[s - 1][1] = Math.max(t[1], r[1]), e.splice(s, 1), e;
+                            e.splice(s, 1), s--
+                        } else {
+                            if (t[1] <= r[0]) return e.splice(s, 0, t), e;
+                            if (t[1] <= r[1]) return r[0] = Math.min(t[0], r[0]), e;
+                            t[0] < r[1] && (r[0] = Math.min(t[0], r[0]), i = !0)
+                        }
+                    }
+                    return i ? e[e.length - 1][1] = t[1] : e.push(t), e
+                }
+
                 register(e) {
                     const t = {id: this._nextCharacterJoinerId++, handler: e};
                     return this._characterJoiners.push(t), t.id
@@ -1968,23 +2016,6 @@
                         a && (a[1] = this._bufferService.cols)
                     }
                 }
-
-                static _mergeRanges(e, t) {
-                    let i = !1;
-                    for (let s = 0; s < e.length; s++) {
-                        const r = e[s];
-                        if (i) {
-                            if (t[1] <= r[0]) return e[s - 1][1] = t[1], e;
-                            if (t[1] <= r[1]) return e[s - 1][1] = Math.max(t[1], r[1]), e.splice(s, 1), e;
-                            e.splice(s, 1), s--
-                        } else {
-                            if (t[1] <= r[0]) return e.splice(s, 0, t), e;
-                            if (t[1] <= r[1]) return r[0] = Math.min(t[0], r[0]), e;
-                            t[0] < r[1] && (r[0] = Math.min(t[0], r[0]), i = !0)
-                        }
-                    }
-                    return i ? e[e.length - 1][1] = t[1] : e.push(t), e
-                }
             };
             t.CharacterJoinerService = l = s([r(0, h.IBufferService)], l)
         }, 5114: (e, t) => {
@@ -2046,10 +2077,6 @@
             Object.defineProperty(t, "__esModule", {value: !0}), t.RenderService = void 0;
             const n = i(3656), o = i(6193), a = i(5596), h = i(4725), c = i(8460), l = i(844), d = i(7226), _ = i(2585);
             let u = t.RenderService = class extends l.Disposable {
-                get dimensions() {
-                    return this._renderer.value.dimensions
-                }
-
                 constructor(e, t, i, s, r, h, _, u) {
                     if (super(), this._rowCount = e, this._charSizeService = s, this._renderer = this.register(new l.MutableDisposable), this._pausedResizeTask = new d.DebouncedIdleTask, this._isPaused = !1, this._needsFullRefresh = !1, this._isNextRenderRedrawOnly = !0, this._needsSelectionRefresh = !1, this._canvasWidth = 0, this._canvasHeight = 0, this._selectionState = {
                         start: void 0,
@@ -2064,6 +2091,10 @@
                         const e = new _.window.IntersectionObserver((e => this._handleIntersectionChange(e[e.length - 1])), {threshold: 0});
                         e.observe(t), this.register({dispose: () => e.disconnect()})
                     }
+                }
+
+                get dimensions() {
+                    return this._renderer.value.dimensions
                 }
 
                 _handleIntersectionChange(e) {
@@ -2164,7 +2195,8 @@
                 }
             };
             Object.defineProperty(t, "__esModule", {value: !0}), t.SelectionService = void 0;
-            const n = i(9806), o = i(9504), a = i(456), h = i(4725), c = i(8460), l = i(844), d = i(6114), _ = i(4841), u = i(511), f = i(2585), v = String.fromCharCode(160), p = new RegExp(v, "g");
+            const n = i(9806), o = i(9504), a = i(456), h = i(4725), c = i(8460), l = i(844), d = i(6114), _ = i(4841), u = i(511),
+                f = i(2585), v = String.fromCharCode(160), p = new RegExp(v, "g");
             let g = t.SelectionService = class extends l.Disposable {
                 constructor(e, t, i, s, r, n, o, h, d) {
                     super(), this._element = e, this._screenElement = t, this._linkifier = i, this._bufferService = s, this._coreService = r, this._mouseService = n, this._optionsService = o, this._renderService = h, this._coreBrowserService = d, this._dragScrollAmount = 0, this._enabled = !0, this._workCell = new u.CellData, this._mouseDownTimeStamp = 0, this._oldHasSelection = !1, this._oldSelectionStart = void 0, this._oldSelectionEnd = void 0, this._onLinuxMouseSelection = this.register(new c.EventEmitter), this.onLinuxMouseSelection = this._onLinuxMouseSelection.event, this._onRedrawRequest = this.register(new c.EventEmitter), this.onRequestRedraw = this._onRedrawRequest.event, this._onSelectionChange = this.register(new c.EventEmitter), this.onSelectionChange = this._onSelectionChange.event, this._onRequestScrollLines = this.register(new c.EventEmitter), this.onRequestScrollLines = this._onRequestScrollLines.event, this._mouseMoveListener = e => this._handleMouseMove(e), this._mouseUpListener = e => this._handleMouseUp(e), this._coreService.onUserInput((() => {
@@ -2172,18 +2204,6 @@
                     })), this._trimListener = this._bufferService.buffer.lines.onTrim((e => this._handleTrim(e))), this.register(this._bufferService.buffers.onBufferActivate((e => this._handleBufferActivate(e)))), this.enable(), this._model = new a.SelectionModel(this._bufferService), this._activeSelectionMode = 0, this.register((0, l.toDisposable)((() => {
                         this._removeMouseDownListeners()
                     })))
-                }
-
-                reset() {
-                    this.clearSelection()
-                }
-
-                disable() {
-                    this.clearSelection(), this._enabled = !1
-                }
-
-                enable() {
-                    this._enabled = !0
                 }
 
                 get selectionStart() {
@@ -2223,6 +2243,18 @@
                         }
                     }
                     return s.map((e => e.replace(p, " "))).join(d.isWindows ? "\r\n" : "\n")
+                }
+
+                reset() {
+                    this.clearSelection()
+                }
+
+                disable() {
+                    this.clearSelection(), this._enabled = !1
+                }
+
+                enable() {
+                    this._enabled = !0
                 }
 
                 clearSelection() {
@@ -2367,7 +2399,8 @@
                 }
 
                 _fireEventIfSelectionChanged() {
-                    const e = this._model.finalSelectionStart, t = this._model.finalSelectionEnd, i = !(!e || !t || e[0] === t[0] && e[1] === t[1]);
+                    const e = this._model.finalSelectionStart, t = this._model.finalSelectionEnd,
+                        i = !(!e || !t || e[0] === t[0] && e[1] === t[1]);
                     i ? e && t && (this._oldSelectionStart && this._oldSelectionEnd && e[0] === this._oldSelectionStart[0] && e[1] === this._oldSelectionStart[1] && t[0] === this._oldSelectionEnd[0] && t[1] === this._oldSelectionEnd[1] || this._fireOnSelectionChange(e, t, i)) : this._oldHasSelection && this._fireOnSelectionChange(e, t, i)
                 }
 
@@ -2469,7 +2502,8 @@
                 }
 
                 _selectLineAt(e) {
-                    const t = this._bufferService.buffer.getWrappedRangeForLine(e), i = {start: {x: 0, y: t.first}, end: {x: this._bufferService.cols - 1, y: t.last}};
+                    const t = this._bufferService.buffer.getWrappedRangeForLine(e),
+                        i = {start: {x: 0, y: t.first}, end: {x: this._bufferService.cols - 1, y: t.last}};
                     this._model.selectionStart = [0, t.first], this._model.selectionEnd = void 0, this._model.selectionStartLength = (0, _.getRangeLength)(i, this._bufferService.cols)
                 }
             };
@@ -2489,7 +2523,8 @@
                 }
             };
             Object.defineProperty(t, "__esModule", {value: !0}), t.ThemeService = t.DEFAULT_ANSI_COLORS = void 0;
-            const n = i(7239), o = i(8055), a = i(8460), h = i(844), c = i(2585), l = o.css.toColor("#ffffff"), d = o.css.toColor("#000000"), _ = o.css.toColor("#ffffff"),
+            const n = i(7239), o = i(8055), a = i(8460), h = i(844), c = i(2585), l = o.css.toColor("#ffffff"),
+                d = o.css.toColor("#000000"), _ = o.css.toColor("#ffffff"),
                 u = o.css.toColor("#000000"), f = {css: "rgba(255, 255, 255, 0.3)", rgba: 4294967117};
             t.DEFAULT_ANSI_COLORS = Object.freeze((() => {
                 const e = [o.css.toColor("#2e3436"), o.css.toColor("#cc0000"), o.css.toColor("#4e9a06"), o.css.toColor("#c4a000"), o.css.toColor("#3465a4"), o.css.toColor("#75507b"), o.css.toColor("#06989a"), o.css.toColor("#d3d7cf"), o.css.toColor("#555753"), o.css.toColor("#ef2929"), o.css.toColor("#8ae234"), o.css.toColor("#fce94f"), o.css.toColor("#729fcf"), o.css.toColor("#ad7fa8"), o.css.toColor("#34e2e2"), o.css.toColor("#eeeeec")],
@@ -2505,10 +2540,6 @@
                 return e
             })());
             let v = t.ThemeService = class extends h.Disposable {
-                get colors() {
-                    return this._colors
-                }
-
                 constructor(e) {
                     super(), this._optionsService = e, this._contrastCache = new n.ColorContrastCache, this._halfContrastCache = new n.ColorContrastCache, this._onChangeColors = this.register(new a.EventEmitter), this.onChangeColors = this._onChangeColors.event, this._colors = {
                         foreground: l,
@@ -2524,6 +2555,10 @@
                         contrastCache: this._contrastCache,
                         halfContrastCache: this._halfContrastCache
                     }, this._updateRestoreColors(), this._setTheme(this._optionsService.rawOptions.theme), this.register(this._optionsService.onSpecificOptionChange("minimumContrastRatio", (() => this._contrastCache.clear()))), this.register(this._optionsService.onSpecificOptionChange("theme", (() => this._setTheme(this._optionsService.rawOptions.theme))))
+                }
+
+                get colors() {
+                    return this._colors
                 }
 
                 _setTheme(e = {}) {
@@ -2568,7 +2603,12 @@
                 }
 
                 _updateRestoreColors() {
-                    this._restoreColors = {foreground: this._colors.foreground, background: this._colors.background, cursor: this._colors.cursor, ansi: this._colors.ansi.slice()}
+                    this._restoreColors = {
+                        foreground: this._colors.foreground,
+                        background: this._colors.background,
+                        cursor: this._colors.cursor,
+                        ansi: this._colors.ansi.slice()
+                    }
                 }
             };
 
@@ -2610,6 +2650,10 @@
                     this._length = e
                 }
 
+                get isFull() {
+                    return this._length === this._maxLength
+                }
+
                 get(e) {
                     return this._array[this._getCyclicIndex(e)]
                 }
@@ -2625,10 +2669,6 @@
                 recycle() {
                     if (this._length !== this._maxLength) throw new Error("Can only recycle when the buffer is full");
                     return this._startIndex = ++this._startIndex % this._maxLength, this.onTrimEmitter.fire(1), this._array[this._getCyclicIndex(this._length - 1)]
-                }
-
-                get isFull() {
-                    return this._length === this._maxLength
                 }
 
                 pop() {
@@ -2705,8 +2745,12 @@
 
                 e.blend = function (e, t) {
                     if (a = (255 & t.rgba) / 255, 1 === a) return {css: t.css, rgba: t.rgba};
-                    const i = t.rgba >> 24 & 255, s = t.rgba >> 16 & 255, c = t.rgba >> 8 & 255, l = e.rgba >> 24 & 255, d = e.rgba >> 16 & 255, _ = e.rgba >> 8 & 255;
-                    return r = l + Math.round((i - l) * a), n = d + Math.round((s - d) * a), o = _ + Math.round((c - _) * a), {css: h.toCss(r, n, o), rgba: h.toRgba(r, n, o)}
+                    const i = t.rgba >> 24 & 255, s = t.rgba >> 16 & 255, c = t.rgba >> 8 & 255, l = e.rgba >> 24 & 255,
+                        d = e.rgba >> 16 & 255, _ = e.rgba >> 8 & 255;
+                    return r = l + Math.round((i - l) * a), n = d + Math.round((s - d) * a), o = _ + Math.round((c - _) * a), {
+                        css: h.toCss(r, n, o),
+                        rgba: h.toRgba(r, n, o)
+                    }
                 }, e.isOpaque = function (e) {
                     return 255 == (255 & e.rgba)
                 }, e.ensureContrastRatio = function (e, t, i) {
@@ -2758,14 +2802,16 @@
             }(d || (t.rgb = d = {})), function (e) {
                 function t(e, t, i) {
                     const s = e >> 24 & 255, r = e >> 16 & 255, n = e >> 8 & 255;
-                    let o = t >> 24 & 255, a = t >> 16 & 255, h = t >> 8 & 255, c = f(d.relativeLuminance2(o, a, h), d.relativeLuminance2(s, r, n));
+                    let o = t >> 24 & 255, a = t >> 16 & 255, h = t >> 8 & 255,
+                        c = f(d.relativeLuminance2(o, a, h), d.relativeLuminance2(s, r, n));
                     for (; c < i && (o > 0 || a > 0 || h > 0);) o -= Math.max(0, Math.ceil(.1 * o)), a -= Math.max(0, Math.ceil(.1 * a)), h -= Math.max(0, Math.ceil(.1 * h)), c = f(d.relativeLuminance2(o, a, h), d.relativeLuminance2(s, r, n));
                     return (o << 24 | a << 16 | h << 8 | 255) >>> 0
                 }
 
                 function i(e, t, i) {
                     const s = e >> 24 & 255, r = e >> 16 & 255, n = e >> 8 & 255;
-                    let o = t >> 24 & 255, a = t >> 16 & 255, h = t >> 8 & 255, c = f(d.relativeLuminance2(o, a, h), d.relativeLuminance2(s, r, n));
+                    let o = t >> 24 & 255, a = t >> 16 & 255, h = t >> 8 & 255,
+                        c = f(d.relativeLuminance2(o, a, h), d.relativeLuminance2(s, r, n));
                     for (; c < i && (o < 255 || a < 255 || h < 255);) o = Math.min(255, o + Math.ceil(.1 * (255 - o))), a = Math.min(255, a + Math.ceil(.1 * (255 - a))), h = Math.min(255, h + Math.ceil(.1 * (255 - h))), c = f(d.relativeLuminance2(o, a, h), d.relativeLuminance2(s, r, n));
                     return (o << 24 | a << 16 | h << 8 | 255) >>> 0
                 }
@@ -2796,11 +2842,26 @@
             }(_ || (t.rgba = _ = {})), t.toPaddedHex = u, t.contrastRatio = f
         }, 8969: (e, t, i) => {
             Object.defineProperty(t, "__esModule", {value: !0}), t.CoreTerminal = void 0;
-            const s = i(844), r = i(2585), n = i(4348), o = i(7866), a = i(744), h = i(7302), c = i(6975), l = i(8460), d = i(1753), _ = i(1480), u = i(7994), f = i(9282), v = i(5435), p = i(5981),
+            const s = i(844), r = i(2585), n = i(4348), o = i(7866), a = i(744), h = i(7302), c = i(6975), l = i(8460), d = i(1753),
+                _ = i(1480), u = i(7994), f = i(9282), v = i(5435), p = i(5981),
                 g = i(2660);
             let m = !1;
 
             class S extends s.Disposable {
+                constructor(e) {
+                    super(), this._windowsWrappingHeuristics = this.register(new s.MutableDisposable), this._onBinary = this.register(new l.EventEmitter), this.onBinary = this._onBinary.event, this._onData = this.register(new l.EventEmitter), this.onData = this._onData.event, this._onLineFeed = this.register(new l.EventEmitter), this.onLineFeed = this._onLineFeed.event, this._onResize = this.register(new l.EventEmitter), this.onResize = this._onResize.event, this._onWriteParsed = this.register(new l.EventEmitter), this.onWriteParsed = this._onWriteParsed.event, this._onScroll = this.register(new l.EventEmitter), this._instantiationService = new n.InstantiationService, this.optionsService = this.register(new h.OptionsService(e)), this._instantiationService.setService(r.IOptionsService, this.optionsService), this._bufferService = this.register(this._instantiationService.createInstance(a.BufferService)), this._instantiationService.setService(r.IBufferService, this._bufferService), this._logService = this.register(this._instantiationService.createInstance(o.LogService)), this._instantiationService.setService(r.ILogService, this._logService), this.coreService = this.register(this._instantiationService.createInstance(c.CoreService)), this._instantiationService.setService(r.ICoreService, this.coreService), this.coreMouseService = this.register(this._instantiationService.createInstance(d.CoreMouseService)), this._instantiationService.setService(r.ICoreMouseService, this.coreMouseService), this.unicodeService = this.register(this._instantiationService.createInstance(_.UnicodeService)), this._instantiationService.setService(r.IUnicodeService, this.unicodeService), this._charsetService = this._instantiationService.createInstance(u.CharsetService), this._instantiationService.setService(r.ICharsetService, this._charsetService), this._oscLinkService = this._instantiationService.createInstance(g.OscLinkService), this._instantiationService.setService(r.IOscLinkService, this._oscLinkService), this._inputHandler = this.register(new v.InputHandler(this._bufferService, this._charsetService, this.coreService, this._logService, this.optionsService, this._oscLinkService, this.coreMouseService, this.unicodeService)), this.register((0, l.forwardEvent)(this._inputHandler.onLineFeed, this._onLineFeed)), this.register(this._inputHandler), this.register((0, l.forwardEvent)(this._bufferService.onResize, this._onResize)), this.register((0, l.forwardEvent)(this.coreService.onData, this._onData)), this.register((0, l.forwardEvent)(this.coreService.onBinary, this._onBinary)), this.register(this.coreService.onRequestScrollToBottom((() => this.scrollToBottom()))), this.register(this.coreService.onUserInput((() => this._writeBuffer.handleUserInput()))), this.register(this.optionsService.onMultipleOptionChange(["windowsMode", "windowsPty"], (() => this._handleWindowsPtyOptionChange()))), this.register(this._bufferService.onScroll((e => {
+                        this._onScroll.fire({
+                            position: this._bufferService.buffer.ydisp,
+                            source: 0
+                        }), this._inputHandler.markRangeDirty(this._bufferService.buffer.scrollTop, this._bufferService.buffer.scrollBottom)
+                    }))), this.register(this._inputHandler.onScroll((e => {
+                        this._onScroll.fire({
+                            position: this._bufferService.buffer.ydisp,
+                            source: 0
+                        }), this._inputHandler.markRangeDirty(this._bufferService.buffer.scrollTop, this._bufferService.buffer.scrollBottom)
+                    }))), this._writeBuffer = this.register(new p.WriteBuffer(((e, t) => this._inputHandler.parse(e, t)))), this.register((0, l.forwardEvent)(this._writeBuffer.onWriteParsed, this._onWriteParsed))
+                }
+
                 get onScroll() {
                     return this._onScrollApi || (this._onScrollApi = this.register(new l.EventEmitter), this._onScroll.event((e => {
                         var t;
@@ -2826,20 +2887,6 @@
 
                 set options(e) {
                     for (const t in e) this.optionsService.options[t] = e[t]
-                }
-
-                constructor(e) {
-                    super(), this._windowsWrappingHeuristics = this.register(new s.MutableDisposable), this._onBinary = this.register(new l.EventEmitter), this.onBinary = this._onBinary.event, this._onData = this.register(new l.EventEmitter), this.onData = this._onData.event, this._onLineFeed = this.register(new l.EventEmitter), this.onLineFeed = this._onLineFeed.event, this._onResize = this.register(new l.EventEmitter), this.onResize = this._onResize.event, this._onWriteParsed = this.register(new l.EventEmitter), this.onWriteParsed = this._onWriteParsed.event, this._onScroll = this.register(new l.EventEmitter), this._instantiationService = new n.InstantiationService, this.optionsService = this.register(new h.OptionsService(e)), this._instantiationService.setService(r.IOptionsService, this.optionsService), this._bufferService = this.register(this._instantiationService.createInstance(a.BufferService)), this._instantiationService.setService(r.IBufferService, this._bufferService), this._logService = this.register(this._instantiationService.createInstance(o.LogService)), this._instantiationService.setService(r.ILogService, this._logService), this.coreService = this.register(this._instantiationService.createInstance(c.CoreService)), this._instantiationService.setService(r.ICoreService, this.coreService), this.coreMouseService = this.register(this._instantiationService.createInstance(d.CoreMouseService)), this._instantiationService.setService(r.ICoreMouseService, this.coreMouseService), this.unicodeService = this.register(this._instantiationService.createInstance(_.UnicodeService)), this._instantiationService.setService(r.IUnicodeService, this.unicodeService), this._charsetService = this._instantiationService.createInstance(u.CharsetService), this._instantiationService.setService(r.ICharsetService, this._charsetService), this._oscLinkService = this._instantiationService.createInstance(g.OscLinkService), this._instantiationService.setService(r.IOscLinkService, this._oscLinkService), this._inputHandler = this.register(new v.InputHandler(this._bufferService, this._charsetService, this.coreService, this._logService, this.optionsService, this._oscLinkService, this.coreMouseService, this.unicodeService)), this.register((0, l.forwardEvent)(this._inputHandler.onLineFeed, this._onLineFeed)), this.register(this._inputHandler), this.register((0, l.forwardEvent)(this._bufferService.onResize, this._onResize)), this.register((0, l.forwardEvent)(this.coreService.onData, this._onData)), this.register((0, l.forwardEvent)(this.coreService.onBinary, this._onBinary)), this.register(this.coreService.onRequestScrollToBottom((() => this.scrollToBottom()))), this.register(this.coreService.onUserInput((() => this._writeBuffer.handleUserInput()))), this.register(this.optionsService.onMultipleOptionChange(["windowsMode", "windowsPty"], (() => this._handleWindowsPtyOptionChange()))), this.register(this._bufferService.onScroll((e => {
-                        this._onScroll.fire({
-                            position: this._bufferService.buffer.ydisp,
-                            source: 0
-                        }), this._inputHandler.markRangeDirty(this._bufferService.buffer.scrollTop, this._bufferService.buffer.scrollBottom)
-                    }))), this.register(this._inputHandler.onScroll((e => {
-                        this._onScroll.fire({
-                            position: this._bufferService.buffer.ydisp,
-                            source: 0
-                        }), this._inputHandler.markRangeDirty(this._bufferService.buffer.scrollTop, this._bufferService.buffer.scrollBottom)
-                    }))), this._writeBuffer = this.register(new p.WriteBuffer(((e, t) => this._inputHandler.parse(e, t)))), this.register((0, l.forwardEvent)(this._writeBuffer.onWriteParsed, this._onWriteParsed))
                 }
 
                 write(e, t) {
@@ -2961,7 +3008,8 @@
                 }
             };
             Object.defineProperty(t, "__esModule", {value: !0}), t.InputHandler = t.WindowsOptionsReportType = void 0;
-            const n = i(2584), o = i(7116), a = i(2015), h = i(844), c = i(482), l = i(8437), d = i(8460), _ = i(643), u = i(511), f = i(3734), v = i(2585), p = i(6242), g = i(6351), m = i(5941),
+            const n = i(2584), o = i(7116), a = i(2015), h = i(844), c = i(482), l = i(8437), d = i(8460), _ = i(643), u = i(511),
+                f = i(3734), v = i(2585), p = i(6242), g = i(6351), m = i(5941),
                 S = {"(": 0, ")": 1, "*": 2, "+": 3, "-": 1, ".": 2}, C = 131072;
 
             function b(e, t) {
@@ -3022,10 +3070,6 @@
             let w = 0;
 
             class E extends h.Disposable {
-                getAttrData() {
-                    return this._curAttrData
-                }
-
                 constructor(e, t, i, s, r, h, _, f, v = new a.EscapeSequenceParser) {
                     super(), this._bufferService = e, this._charsetService = t, this._coreService = i, this._logService = s, this._optionsService = r, this._oscLinkService = h, this._coreMouseService = _, this._unicodeService = f, this._parser = v, this._parseBuffer = new Uint32Array(4096), this._stringDecoder = new c.StringToUtf32, this._utf8Decoder = new c.Utf8ToUtf32, this._workCell = new u.CellData, this._windowTitle = "", this._iconName = "", this._windowTitleStack = [], this._iconNameStack = [], this._curAttrData = l.DEFAULT_ATTR_DATA.clone(), this._eraseAttrDataInternal = l.DEFAULT_ATTR_DATA.clone(), this._onRequestBell = this.register(new d.EventEmitter), this.onRequestBell = this._onRequestBell.event, this._onRequestRefreshRows = this.register(new d.EventEmitter), this.onRequestRefreshRows = this._onRequestRefreshRows.event, this._onRequestReset = this.register(new d.EventEmitter), this.onRequestReset = this._onRequestReset.event, this._onRequestSendFocus = this.register(new d.EventEmitter), this.onRequestSendFocus = this._onRequestSendFocus.event, this._onRequestSyncScrollBar = this.register(new d.EventEmitter), this.onRequestSyncScrollBar = this._onRequestSyncScrollBar.event, this._onRequestWindowsOptionsReport = this.register(new d.EventEmitter), this.onRequestWindowsOptionsReport = this._onRequestWindowsOptionsReport.event, this._onA11yChar = this.register(new d.EventEmitter), this.onA11yChar = this._onA11yChar.event, this._onA11yTab = this.register(new d.EventEmitter), this.onA11yTab = this._onA11yTab.event, this._onCursorMove = this.register(new d.EventEmitter), this.onCursorMove = this._onCursorMove.event, this._onLineFeed = this.register(new d.EventEmitter), this.onLineFeed = this._onLineFeed.event, this._onScroll = this.register(new d.EventEmitter), this.onScroll = this._onScroll.event, this._onTitleChange = this.register(new d.EventEmitter), this.onTitleChange = this._onTitleChange.event, this._onColor = this.register(new d.EventEmitter), this.onColor = this._onColor.event, this._parseStack = {
                         paused: !1,
@@ -3042,7 +3086,11 @@
                     })), this._parser.setOscHandlerFallback(((e, t, i) => {
                         this._logService.debug("Unknown OSC code: ", {identifier: e, action: t, data: i})
                     })), this._parser.setDcsHandlerFallback(((e, t, i) => {
-                        "HOOK" === t && (i = i.toArray()), this._logService.debug("Unknown DCS code: ", {identifier: this._parser.identToString(e), action: t, payload: i})
+                        "HOOK" === t && (i = i.toArray()), this._logService.debug("Unknown DCS code: ", {
+                            identifier: this._parser.identToString(e),
+                            action: t,
+                            payload: i
+                        })
                     })), this._parser.setPrintHandler(((e, t, i) => this.print(e, t, i))), this._parser.registerCsiHandler({final: "@"}, (e => this.insertChars(e))), this._parser.registerCsiHandler({
                         intermediates: " ",
                         final: "@"
@@ -3082,14 +3130,20 @@
                     }, (e => this.deleteColumns(e))),this._parser.registerCsiHandler({
                         intermediates: '"',
                         final: "q"
-                    }, (e => this.selectProtected(e))),this._parser.registerCsiHandler({intermediates: "$", final: "p"}, (e => this.requestMode(e, !0))),this._parser.registerCsiHandler({
+                    }, (e => this.selectProtected(e))),this._parser.registerCsiHandler({
+                        intermediates: "$",
+                        final: "p"
+                    }, (e => this.requestMode(e, !0))),this._parser.registerCsiHandler({
                         prefix: "?",
                         intermediates: "$",
                         final: "p"
                     }, (e => this.requestMode(e, !1))),this._parser.setExecuteHandler(n.C0.BEL, (() => this.bell())),this._parser.setExecuteHandler(n.C0.LF, (() => this.lineFeed())),this._parser.setExecuteHandler(n.C0.VT, (() => this.lineFeed())),this._parser.setExecuteHandler(n.C0.FF, (() => this.lineFeed())),this._parser.setExecuteHandler(n.C0.CR, (() => this.carriageReturn())),this._parser.setExecuteHandler(n.C0.BS, (() => this.backspace())),this._parser.setExecuteHandler(n.C0.HT, (() => this.tab())),this._parser.setExecuteHandler(n.C0.SO, (() => this.shiftOut())),this._parser.setExecuteHandler(n.C0.SI, (() => this.shiftIn())),this._parser.setExecuteHandler(n.C1.IND, (() => this.index())),this._parser.setExecuteHandler(n.C1.NEL, (() => this.nextLine())),this._parser.setExecuteHandler(n.C1.HTS, (() => this.tabSet())),this._parser.registerOscHandler(0, new p.OscHandler((e => (this.setTitle(e), this.setIconName(e), !0)))),this._parser.registerOscHandler(1, new p.OscHandler((e => this.setIconName(e)))),this._parser.registerOscHandler(2, new p.OscHandler((e => this.setTitle(e)))),this._parser.registerOscHandler(4, new p.OscHandler((e => this.setOrReportIndexedColor(e)))),this._parser.registerOscHandler(8, new p.OscHandler((e => this.setHyperlink(e)))),this._parser.registerOscHandler(10, new p.OscHandler((e => this.setOrReportFgColor(e)))),this._parser.registerOscHandler(11, new p.OscHandler((e => this.setOrReportBgColor(e)))),this._parser.registerOscHandler(12, new p.OscHandler((e => this.setOrReportCursorColor(e)))),this._parser.registerOscHandler(104, new p.OscHandler((e => this.restoreIndexedColor(e)))),this._parser.registerOscHandler(110, new p.OscHandler((e => this.restoreFgColor(e)))),this._parser.registerOscHandler(111, new p.OscHandler((e => this.restoreBgColor(e)))),this._parser.registerOscHandler(112, new p.OscHandler((e => this.restoreCursorColor(e)))),this._parser.registerEscHandler({final: "7"}, (() => this.saveCursor())),this._parser.registerEscHandler({final: "8"}, (() => this.restoreCursor())),this._parser.registerEscHandler({final: "D"}, (() => this.index())),this._parser.registerEscHandler({final: "E"}, (() => this.nextLine())),this._parser.registerEscHandler({final: "H"}, (() => this.tabSet())),this._parser.registerEscHandler({final: "M"}, (() => this.reverseIndex())),this._parser.registerEscHandler({final: "="}, (() => this.keypadApplicationMode())),this._parser.registerEscHandler({final: ">"}, (() => this.keypadNumericMode())),this._parser.registerEscHandler({final: "c"}, (() => this.fullReset())),this._parser.registerEscHandler({final: "n"}, (() => this.setgLevel(2))),this._parser.registerEscHandler({final: "o"}, (() => this.setgLevel(3))),this._parser.registerEscHandler({final: "|"}, (() => this.setgLevel(3))),this._parser.registerEscHandler({final: "}"}, (() => this.setgLevel(2))),this._parser.registerEscHandler({final: "~"}, (() => this.setgLevel(1))),this._parser.registerEscHandler({
                         intermediates: "%",
                         final: "@"
-                    }, (() => this.selectDefaultCharset())),this._parser.registerEscHandler({intermediates: "%", final: "G"}, (() => this.selectDefaultCharset()));
+                    }, (() => this.selectDefaultCharset())),this._parser.registerEscHandler({
+                        intermediates: "%",
+                        final: "G"
+                    }, (() => this.selectDefaultCharset()));
                     for (const e in o.CHARSETS) this._parser.registerEscHandler({
                         intermediates: "(",
                         final: e
@@ -3108,7 +3162,10 @@
                     }, (() => this.selectCharset("-" + e))), this._parser.registerEscHandler({
                         intermediates: ".",
                         final: e
-                    }, (() => this.selectCharset("." + e))), this._parser.registerEscHandler({intermediates: "/", final: e}, (() => this.selectCharset("/" + e)));
+                    }, (() => this.selectCharset("." + e))), this._parser.registerEscHandler({
+                        intermediates: "/",
+                        final: e
+                    }, (() => this.selectCharset("/" + e)));
                     this._parser.registerEscHandler({
                         intermediates: "#",
                         final: "8"
@@ -3116,6 +3173,10 @@
                         intermediates: "$",
                         final: "q"
                     }, new g.DcsHandler(((e, t) => this.requestStatusString(e, t))))
+                }
+
+                getAttrData() {
+                    return this._curAttrData
                 }
 
                 _preserveStack(e, t, i, s) {
@@ -3153,7 +3214,8 @@
 
                 print(e, t, i) {
                     let s, r;
-                    const n = this._charsetService.charset, o = this._optionsService.rawOptions.screenReaderMode, a = this._bufferService.cols, h = this._coreService.decPrivateModes.wraparound,
+                    const n = this._charsetService.charset, o = this._optionsService.rawOptions.screenReaderMode,
+                        a = this._bufferService.cols, h = this._coreService.decPrivateModes.wraparound,
                         l = this._coreService.modes.insertMode, d = this._curAttrData;
                     let u = this._activeBuffer.lines.get(this._activeBuffer.ybase + this._activeBuffer.y);
                     this._dirtyRowTracker.markDirty(this._activeBuffer.y), this._activeBuffer.x && i - t > 0 && 2 === u.getWidth(this._activeBuffer.x - 1) && u.setCellFromCodePoint(this._activeBuffer.x - 1, 0, 1, d.fg, d.bg, d.extended);
@@ -3366,7 +3428,8 @@
                     this._restrictCursor();
                     let t = e.params[0] || 1;
                     if (this._activeBuffer.y > this._activeBuffer.scrollBottom || this._activeBuffer.y < this._activeBuffer.scrollTop) return !0;
-                    const i = this._activeBuffer.ybase + this._activeBuffer.y, s = this._bufferService.rows - 1 - this._activeBuffer.scrollBottom,
+                    const i = this._activeBuffer.ybase + this._activeBuffer.y,
+                        s = this._bufferService.rows - 1 - this._activeBuffer.scrollBottom,
                         r = this._bufferService.rows - 1 + this._activeBuffer.ybase - s + 1;
                     for (; t--;) this._activeBuffer.lines.splice(r - 1, 1), this._activeBuffer.lines.splice(i, 0, this._activeBuffer.getBlankLine(this._eraseAttrData()));
                     return this._dirtyRowTracker.markRangeDirty(this._activeBuffer.y, this._activeBuffer.scrollBottom), this._activeBuffer.x = 0, !0
@@ -3624,10 +3687,12 @@
                 }
 
                 requestMode(e, t) {
-                    const i = this._coreService.decPrivateModes, {activeProtocol: s, activeEncoding: r} = this._coreMouseService, o = this._coreService, {
-                        buffers: a,
-                        cols: h
-                    } = this._bufferService, {active: c, alt: l} = a, d = this._optionsService.rawOptions, _ = e => e ? 1 : 2, u = e.params[0];
+                    const i = this._coreService.decPrivateModes, {activeProtocol: s, activeEncoding: r} = this._coreMouseService,
+                        o = this._coreService, {
+                            buffers: a,
+                            cols: h
+                        } = this._bufferService, {active: c, alt: l} = a, d = this._optionsService.rawOptions, _ = e => e ? 1 : 2,
+                        u = e.params[0];
                     return f = u, v = t ? 2 === u ? 4 : 4 === u ? _(o.modes.insertMode) : 12 === u ? 3 : 20 === u ? _(d.convertEol) : 0 : 1 === u ? _(i.applicationCursorKeys) : 3 === u ? d.windowOptions.setWinLines ? 80 === h ? 2 : 132 === h ? 1 : 0 : 0 : 6 === u ? _(i.origin) : 7 === u ? _(i.wraparound) : 8 === u ? 3 : 9 === u ? _("X10" === s) : 12 === u ? _(d.cursorBlink) : 25 === u ? _(!o.isCursorHidden) : 45 === u ? _(i.reverseWraparound) : 66 === u ? _(i.applicationKeypad) : 67 === u ? 4 : 1e3 === u ? _("VT200" === s) : 1002 === u ? _("DRAG" === s) : 1003 === u ? _("ANY" === s) : 1004 === u ? _(i.sendFocus) : 1005 === u ? 4 : 1006 === u ? _("SGR" === r) : 1015 === u ? 4 : 1016 === u ? _("SGR_PIXELS" === r) : 1048 === u ? 1 : 47 === u || 1047 === u || 1049 === u ? _(c === l) : 2004 === u ? _(i.bracketedPasteMode) : 0, o.triggerDataEvent(`${n.C0.ESC}[${t ? "" : "?"}${f};${v}$y`), !0;
                     var f, v
                 }
@@ -3806,7 +3871,10 @@
 
                 _setOrReportSpecialColor(e, t) {
                     const i = e.split(";");
-                    for (let e = 0; e < i.length && !(t >= this._specialColors.length); ++e, ++t) if ("?" === i[e]) this._onColor.fire([{type: 0, index: this._specialColors[t]}]); else {
+                    for (let e = 0; e < i.length && !(t >= this._specialColors.length); ++e, ++t) if ("?" === i[e]) this._onColor.fire([{
+                        type: 0,
+                        index: this._specialColors[t]
+                    }]); else {
                         const s = (0, m.parseColor)(i[e]);
                         s && this._onColor.fire([{type: 1, index: this._specialColors[t], color: s}])
                     }
@@ -4187,7 +4255,8 @@
             Object.defineProperty(t, "__esModule", {value: !0}), t.updateWindowsModeWrappedState = void 0;
             const s = i(643);
             t.updateWindowsModeWrappedState = function (e) {
-                const t = e.buffer.lines.get(e.buffer.ybase + e.buffer.y - 1), i = null == t ? void 0 : t.get(e.cols - 1), r = e.buffer.lines.get(e.buffer.ybase + e.buffer.y);
+                const t = e.buffer.lines.get(e.buffer.ybase + e.buffer.y - 1), i = null == t ? void 0 : t.get(e.cols - 1),
+                    r = e.buffer.lines.get(e.buffer.ybase + e.buffer.y);
                 r && i && (r.isWrapped = i[s.CHAR_DATA_CODE_INDEX] !== s.NULL_CELL_CODE && i[s.CHAR_DATA_CODE_INDEX] !== s.WHITESPACE_CELL_CODE)
             }
         }, 3734: (e, t) => {
@@ -4356,6 +4425,10 @@
             t.AttributeData = i;
 
             class s {
+                constructor(e = 0, t = 0) {
+                    this._ext = 0, this._urlId = 0, this._ext = e, this._urlId = t
+                }
+
                 get ext() {
                     return this._urlId ? -469762049 & this._ext | this.underlineStyle << 26 : this._ext
                 }
@@ -4388,10 +4461,6 @@
                     this._urlId = e
                 }
 
-                constructor(e = 0, t = 0) {
-                    this._ext = 0, this._urlId = 0, this._ext = e, this._urlId = t
-                }
-
                 clone() {
                     return new s(this._ext, this._urlId)
                 }
@@ -4410,6 +4479,20 @@
                     this._hasScrollback = e, this._optionsService = t, this._bufferService = i, this.ydisp = 0, this.ybase = 0, this.y = 0, this.x = 0, this.tabs = {}, this.savedY = 0, this.savedX = 0, this.savedCurAttrData = o.DEFAULT_ATTR_DATA.clone(), this.savedCharset = d.DEFAULT_CHARSET, this.markers = [], this._nullCell = h.CellData.fromCharData([0, c.NULL_CELL_CHAR, c.NULL_CELL_WIDTH, c.NULL_CELL_CODE]), this._whitespaceCell = h.CellData.fromCharData([0, c.WHITESPACE_CELL_CHAR, c.WHITESPACE_CELL_WIDTH, c.WHITESPACE_CELL_CODE]), this._isClearing = !1, this._memoryCleanupQueue = new r.IdleTaskQueue, this._memoryCleanupPosition = 0, this._cols = this._bufferService.cols, this._rows = this._bufferService.rows, this.lines = new s.CircularList(this._getCorrectBufferLength(this._rows)), this.scrollTop = 0, this.scrollBottom = this._rows - 1, this.setupTabStops()
                 }
 
+                get hasScrollback() {
+                    return this._hasScrollback && this.lines.maxLength > this._rows
+                }
+
+                get isCursorInViewport() {
+                    const e = this.ybase + this.y - this.ydisp;
+                    return e >= 0 && e < this._rows
+                }
+
+                get _isReflowEnabled() {
+                    const e = this._optionsService.rawOptions.windowsPty;
+                    return e && e.buildNumber ? this._hasScrollback && "conpty" === e.backend && e.buildNumber >= 21376 : this._hasScrollback && !this._optionsService.rawOptions.windowsMode
+                }
+
                 getNullCell(e) {
                     return e ? (this._nullCell.fg = e.fg, this._nullCell.bg = e.bg, this._nullCell.extended = e.extended) : (this._nullCell.fg = 0, this._nullCell.bg = 0, this._nullCell.extended = new n.ExtendedAttrs), this._nullCell
                 }
@@ -4420,15 +4503,6 @@
 
                 getBlankLine(e, t) {
                     return new o.BufferLine(this._bufferService.cols, this.getNullCell(e), t)
-                }
-
-                get hasScrollback() {
-                    return this._hasScrollback && this.lines.maxLength > this._rows
-                }
-
-                get isCursorInViewport() {
-                    const e = this.ybase + this.y - this.ydisp;
-                    return e >= 0 && e < this._rows
                 }
 
                 _getCorrectBufferLength(e) {
@@ -4475,11 +4549,6 @@
                     return e
                 }
 
-                get _isReflowEnabled() {
-                    const e = this._optionsService.rawOptions.windowsPty;
-                    return e && e.buildNumber ? this._hasScrollback && "conpty" === e.backend && e.buildNumber >= 21376 : this._hasScrollback && !this._optionsService.rawOptions.windowsMode
-                }
-
                 _reflow(e, t) {
                     this._cols !== e && (e > this._cols ? this._reflowLarger(e, t) : this._reflowSmaller(e, t))
                 }
@@ -4509,7 +4578,8 @@
                         for (; h.isWrapped && n > 0;) h = this.lines.get(--n), c.unshift(h);
                         const l = this.ybase + this.y;
                         if (l >= n && l < n + c.length) continue;
-                        const d = c[c.length - 1].getTrimmedLength(), _ = (0, a.reflowSmallerGetNewLineLengths)(c, this._cols, e), u = _.length - c.length;
+                        const d = c[c.length - 1].getTrimmedLength(), _ = (0, a.reflowSmallerGetNewLineLengths)(c, this._cols, e),
+                            u = _.length - c.length;
                         let f;
                         f = 0 === this.ybase && this.y !== this.lines.length - 1 ? Math.max(0, this.y - this.lines.maxLength + u) : Math.max(0, this.lines.length - this.lines.maxLength + u);
                         const v = [];
@@ -4874,13 +4944,6 @@
                     super(), this._optionsService = e, this._bufferService = t, this._onBufferActivate = this.register(new s.EventEmitter), this.onBufferActivate = this._onBufferActivate.event, this.reset(), this.register(this._optionsService.onSpecificOptionChange("scrollback", (() => this.resize(this._bufferService.cols, this._bufferService.rows)))), this.register(this._optionsService.onSpecificOptionChange("tabStopWidth", (() => this.setupTabStops())))
                 }
 
-                reset() {
-                    this._normal = new n.Buffer(!0, this._optionsService, this._bufferService), this._normal.fillViewportRows(), this._alt = new n.Buffer(!1, this._optionsService, this._bufferService), this._activeBuffer = this._normal, this._onBufferActivate.fire({
-                        activeBuffer: this._normal,
-                        inactiveBuffer: this._alt
-                    }), this.setupTabStops()
-                }
-
                 get alt() {
                     return this._alt
                 }
@@ -4891,6 +4954,13 @@
 
                 get normal() {
                     return this._normal
+                }
+
+                reset() {
+                    this._normal = new n.Buffer(!0, this._optionsService, this._bufferService), this._normal.fillViewportRows(), this._alt = new n.Buffer(!1, this._optionsService, this._bufferService), this._activeBuffer = this._normal, this._onBufferActivate.fire({
+                        activeBuffer: this._normal,
+                        inactiveBuffer: this._alt
+                    }), this.setupTabStops()
                 }
 
                 activateNormalBuffer() {
@@ -4973,12 +5043,12 @@
             const s = i(8460), r = i(844);
 
             class n {
-                get id() {
-                    return this._id
-                }
-
                 constructor(e) {
                     this.line = e, this.isDisposed = !1, this._disposables = [], this._id = n._nextId++, this._onDispose = this.register(new s.EventEmitter), this.onDispose = this._onDispose.event
+                }
+
+                get id() {
+                    return this._id
                 }
 
                 dispose() {
@@ -5034,7 +5104,17 @@
                 "|": "f",
                 "}": "¼",
                 "~": "´"
-            }, t.CHARSETS.C = t.CHARSETS[5] = {"[": "Ä", "\\": "Ö", "]": "Å", "^": "Ü", "`": "é", "{": "ä", "|": "ö", "}": "å", "~": "ü"}, t.CHARSETS.R = {
+            }, t.CHARSETS.C = t.CHARSETS[5] = {
+                "[": "Ä",
+                "\\": "Ö",
+                "]": "Å",
+                "^": "Ü",
+                "`": "é",
+                "{": "ä",
+                "|": "ö",
+                "}": "å",
+                "~": "ü"
+            }, t.CHARSETS.R = {
                 "#": "£",
                 "@": "à",
                 "[": "°",
@@ -5044,7 +5124,18 @@
                 "|": "ù",
                 "}": "è",
                 "~": "¨"
-            }, t.CHARSETS.Q = {"@": "à", "[": "â", "\\": "ç", "]": "ê", "^": "î", "`": "ô", "{": "é", "|": "ù", "}": "è", "~": "û"}, t.CHARSETS.K = {
+            }, t.CHARSETS.Q = {
+                "@": "à",
+                "[": "â",
+                "\\": "ç",
+                "]": "ê",
+                "^": "î",
+                "`": "ô",
+                "{": "é",
+                "|": "ù",
+                "}": "è",
+                "~": "û"
+            }, t.CHARSETS.K = {
                 "@": "§",
                 "[": "Ä",
                 "\\": "Ö",
@@ -5053,7 +5144,18 @@
                 "|": "ö",
                 "}": "ü",
                 "~": "ß"
-            }, t.CHARSETS.Y = {"#": "£", "@": "§", "[": "°", "\\": "ç", "]": "é", "`": "ù", "{": "à", "|": "ò", "}": "è", "~": "ì"}, t.CHARSETS.E = t.CHARSETS[6] = {
+            }, t.CHARSETS.Y = {
+                "#": "£",
+                "@": "§",
+                "[": "°",
+                "\\": "ç",
+                "]": "é",
+                "`": "ù",
+                "{": "à",
+                "|": "ò",
+                "}": "è",
+                "~": "ì"
+            }, t.CHARSETS.E = t.CHARSETS[6] = {
                 "@": "Ä",
                 "[": "Æ",
                 "\\": "Ø",
@@ -5064,7 +5166,16 @@
                 "|": "ø",
                 "}": "å",
                 "~": "ü"
-            }, t.CHARSETS.Z = {"#": "£", "@": "§", "[": "¡", "\\": "Ñ", "]": "¿", "{": "°", "|": "ñ", "}": "ç"}, t.CHARSETS.H = t.CHARSETS[7] = {
+            }, t.CHARSETS.Z = {
+                "#": "£",
+                "@": "§",
+                "[": "¡",
+                "\\": "Ñ",
+                "]": "¿",
+                "{": "°",
+                "|": "ñ",
+                "}": "ç"
+            }, t.CHARSETS.H = t.CHARSETS[7] = {
                 "@": "É",
                 "[": "Ä",
                 "\\": "Ö",
@@ -5075,7 +5186,20 @@
                 "|": "ö",
                 "}": "å",
                 "~": "ü"
-            }, t.CHARSETS["="] = {"#": "ù", "@": "à", "[": "é", "\\": "ç", "]": "ê", "^": "î", _: "è", "`": "ô", "{": "ä", "|": "ö", "}": "ü", "~": "û"}
+            }, t.CHARSETS["="] = {
+                "#": "ù",
+                "@": "à",
+                "[": "é",
+                "\\": "ç",
+                "]": "ê",
+                "^": "î",
+                _: "è",
+                "`": "ô",
+                "{": "ä",
+                "|": "ö",
+                "}": "ü",
+                "~": "û"
+            }
         }, 2584: (e, t) => {
             var i, s, r;
             Object.defineProperty(t, "__esModule", {value: !0}), t.C1_ESCAPED = t.C1 = t.C0 = void 0, function (e) {
@@ -5111,7 +5235,8 @@
                 222: ["'", '"']
             };
             t.evaluateKeyboardEvent = function (e, t, i, n) {
-                const o = {type: 0, cancel: !1, key: void 0}, a = (e.shiftKey ? 1 : 0) | (e.altKey ? 2 : 0) | (e.ctrlKey ? 4 : 0) | (e.metaKey ? 8 : 0);
+                const o = {type: 0, cancel: !1, key: void 0},
+                    a = (e.shiftKey ? 1 : 0) | (e.altKey ? 2 : 0) | (e.ctrlKey ? 4 : 0) | (e.metaKey ? 8 : 0);
                 switch (e.keyCode) {
                     case 0:
                         "UIKeyInputUpArrow" === e.key ? o.key = t ? s.C0.ESC + "OA" : s.C0.ESC + "[A" : "UIKeyInputLeftArrow" === e.key ? o.key = t ? s.C0.ESC + "OD" : s.C0.ESC + "[D" : "UIKeyInputRightArrow" === e.key ? o.key = t ? s.C0.ESC + "OC" : s.C0.ESC + "[C" : "UIKeyInputDownArrow" === e.key && (o.key = t ? s.C0.ESC + "OB" : s.C0.ESC + "[B");
@@ -5561,7 +5686,8 @@
             t.TransitionTable = a;
             const h = 160;
             t.VT500_TRANSITION_TABLE = function () {
-                const e = new a(4095), t = Array.apply(null, Array(256)).map(((e, t) => t)), i = (e, i) => t.slice(e, i), s = i(32, 127), r = i(0, 24);
+                const e = new a(4095), t = Array.apply(null, Array(256)).map(((e, t) => t)), i = (e, i) => t.slice(e, i), s = i(32, 127),
+                    r = i(0, 24);
                 r.push(25), r.push.apply(r, i(28, 32));
                 const n = i(0, 14);
                 let o;
@@ -5765,7 +5891,14 @@
                             case 0:
                                 break;
                             case 1:
-                                if (this._errorHandler({position: i, code: r, currentState: this.currentState, collect: this._collect, params: this._params, abort: !1}).abort) return;
+                                if (this._errorHandler({
+                                    position: i,
+                                    code: r,
+                                    currentState: this.currentState,
+                                    collect: this._collect,
+                                    params: this._params,
+                                    abort: !1
+                                }).abort) return;
                                 break;
                             case 7:
                                 const o = this._csiHandlers[this._collect << 8 | r];
@@ -5934,6 +6067,11 @@
             const i = 2147483647;
 
             class s {
+                constructor(e = 32, t = 32) {
+                    if (this.maxLength = e, this.maxSubParamsLength = t, t > 256) throw new Error("maxSubParamsLength must not be greater than 256");
+                    this.params = new Int32Array(e), this.length = 0, this._subParams = new Int32Array(t), this._subParamsLength = 0, this._subParamsIdx = new Uint16Array(e), this._rejectDigits = !1, this._rejectSubDigits = !1, this._digitIsSub = !1
+                }
+
                 static fromArray(e) {
                     const t = new s;
                     if (!e.length) return t;
@@ -5942,11 +6080,6 @@
                         if (Array.isArray(s)) for (let e = 0; e < s.length; ++e) t.addSubParam(s[e]); else t.addParam(s)
                     }
                     return t
-                }
-
-                constructor(e = 32, t = 32) {
-                    if (this.maxLength = e, this.maxSubParamsLength = t, t > 256) throw new Error("maxSubParamsLength must not be greater than 256");
-                    this.params = new Int32Array(e), this.length = 0, this._subParams = new Int32Array(t), this._subParamsLength = 0, this._subParamsIdx = new Uint16Array(e), this._rejectDigits = !1, this._rejectSubDigits = !1, this._digitIsSub = !1
                 }
 
                 clone() {
@@ -6043,10 +6176,6 @@
                     this._buffer = e, this.type = t
                 }
 
-                init(e) {
-                    return this._buffer = e, this
-                }
-
                 get cursorY() {
                     return this._buffer.y
                 }
@@ -6065,6 +6194,10 @@
 
                 get length() {
                     return this._buffer.lines.length
+                }
+
+                init(e) {
+                    return this._buffer = e, this
                 }
 
                 getLine(e) {
@@ -6169,10 +6302,6 @@
                     this._core = e
                 }
 
-                register(e) {
-                    this._core.unicodeService.register(e)
-                }
-
                 get versions() {
                     return this._core.unicodeService.versions
                 }
@@ -6183,6 +6312,10 @@
 
                 set activeVersion(e) {
                     this._core.unicodeService.activeVersion = e
+                }
+
+                register(e) {
+                    this._core.unicodeService.register(e)
                 }
             }
         }, 744: function (e, t, i) {
@@ -6199,12 +6332,12 @@
             const n = i(8460), o = i(844), a = i(5295), h = i(2585);
             t.MINIMUM_COLS = 2, t.MINIMUM_ROWS = 1;
             let c = t.BufferService = class extends o.Disposable {
-                get buffer() {
-                    return this.buffers.active
-                }
-
                 constructor(e) {
                     super(), this.isUserScrolling = !1, this._onResize = this.register(new n.EventEmitter), this.onResize = this._onResize.event, this._onScroll = this.register(new n.EventEmitter), this.onScroll = this._onScroll.event, this.cols = Math.max(e.rawOptions.cols || 0, t.MINIMUM_COLS), this.rows = Math.max(e.rawOptions.rows || 0, t.MINIMUM_ROWS), this.buffers = this.register(new a.BufferSet(e, this))
+                }
+
+                get buffer() {
+                    return this.buffers.active
                 }
 
                 resize(e, t) {
@@ -6303,25 +6436,17 @@
                     this.reset()
                 }
 
-                addProtocol(e, t) {
-                    this._protocols[e] = t
-                }
-
-                addEncoding(e, t) {
-                    this._encodings[e] = t
-                }
-
                 get activeProtocol() {
                     return this._activeProtocol
-                }
-
-                get areMouseEventsActive() {
-                    return 0 !== this._protocols[this._activeProtocol].events
                 }
 
                 set activeProtocol(e) {
                     if (!this._protocols[e]) throw new Error(`unknown protocol "${e}"`);
                     this._activeProtocol = e, this._onProtocolChange.fire(this._protocols[e].events)
+                }
+
+                get areMouseEventsActive() {
+                    return 0 !== this._protocols[this._activeProtocol].events
                 }
 
                 get activeEncoding() {
@@ -6331,6 +6456,14 @@
                 set activeEncoding(e) {
                     if (!this._encodings[e]) throw new Error(`unknown encoding "${e}"`);
                     this._activeEncoding = e
+                }
+
+                addProtocol(e, t) {
+                    this._protocols[e] = t
+                }
+
+                addEncoding(e, t) {
+                    this._encodings[e] = t
                 }
 
                 reset() {
@@ -6376,7 +6509,15 @@
             };
             Object.defineProperty(t, "__esModule", {value: !0}), t.CoreService = void 0;
             const n = i(1439), o = i(8460), a = i(844), h = i(2585), c = Object.freeze({insertMode: !1}),
-                l = Object.freeze({applicationCursorKeys: !1, applicationKeypad: !1, bracketedPasteMode: !1, origin: !1, reverseWraparound: !1, sendFocus: !1, wraparound: !0});
+                l = Object.freeze({
+                    applicationCursorKeys: !1,
+                    applicationKeypad: !1,
+                    bracketedPasteMode: !1,
+                    origin: !1,
+                    reverseWraparound: !1,
+                    sendFocus: !1,
+                    wraparound: !0
+                });
             let d = t.CoreService = class extends a.Disposable {
                 constructor(e, t, i) {
                     super(), this._bufferService = e, this._logService = t, this._optionsService = i, this.isCursorInitialized = !1, this.isCursorHidden = !1, this._onData = this.register(new o.EventEmitter), this.onData = this._onData.event, this._onUserInput = this.register(new o.EventEmitter), this.onUserInput = this._onUserInput.event, this._onBinary = this.register(new o.EventEmitter), this.onBinary = this._onBinary.event, this._onRequestScrollToBottom = this.register(new o.EventEmitter), this.onRequestScrollToBottom = this._onRequestScrollToBottom.event, this.modes = (0, n.clone)(c), this.decPrivateModes = (0, n.clone)(l)
@@ -6403,12 +6544,12 @@
             let a = 0, h = 0;
 
             class c extends n.Disposable {
-                get decorations() {
-                    return this._decorations.values()
-                }
-
                 constructor() {
                     super(), this._decorations = new o.SortedList((e => null == e ? void 0 : e.marker.line)), this._onDecorationRegistered = this.register(new r.EventEmitter), this.onDecorationRegistered = this._onDecorationRegistered.event, this._onDecorationRemoved = this.register(new r.EventEmitter), this.onDecorationRemoved = this._onDecorationRemoved.event, this.register((0, n.toDisposable)((() => this.reset())))
+                }
+
+                get decorations() {
+                    return this._decorations.values()
                 }
 
                 registerDecoration(e) {
@@ -6445,6 +6586,10 @@
             t.DecorationService = c;
 
             class l extends n.Disposable {
+                constructor(e) {
+                    super(), this.options = e, this.onRenderEmitter = this.register(new r.EventEmitter), this.onRender = this.onRenderEmitter.event, this._onDispose = this.register(new r.EventEmitter), this.onDispose = this._onDispose.event, this._cachedBg = null, this._cachedFg = null, this.marker = e.marker, this.options.overviewRulerOptions && !this.options.overviewRulerOptions.position && (this.options.overviewRulerOptions.position = "full")
+                }
+
                 get isDisposed() {
                     return this._isDisposed
                 }
@@ -6455,10 +6600,6 @@
 
                 get foregroundColorRGB() {
                     return null === this._cachedFg && (this.options.foregroundColor ? this._cachedFg = s.css.toColor(this.options.foregroundColor) : this._cachedFg = void 0), this._cachedFg
-                }
-
-                constructor(e) {
-                    super(), this.options = e, this.onRenderEmitter = this.register(new r.EventEmitter), this.onRender = this.onRenderEmitter.event, this._onDispose = this.register(new r.EventEmitter), this.onDispose = this._onDispose.event, this._cachedBg = null, this._cachedFg = null, this.marker = e.marker, this.options.overviewRulerOptions && !this.options.overviewRulerOptions.position && (this.options.overviewRulerOptions.position = "full")
                 }
 
                 dispose() {
@@ -6530,14 +6671,21 @@
             };
             Object.defineProperty(t, "__esModule", {value: !0}), t.traceCall = t.setTraceLogger = t.LogService = void 0;
             const n = i(844), o = i(2585),
-                a = {trace: o.LogLevelEnum.TRACE, debug: o.LogLevelEnum.DEBUG, info: o.LogLevelEnum.INFO, warn: o.LogLevelEnum.WARN, error: o.LogLevelEnum.ERROR, off: o.LogLevelEnum.OFF};
+                a = {
+                    trace: o.LogLevelEnum.TRACE,
+                    debug: o.LogLevelEnum.DEBUG,
+                    info: o.LogLevelEnum.INFO,
+                    warn: o.LogLevelEnum.WARN,
+                    error: o.LogLevelEnum.ERROR,
+                    off: o.LogLevelEnum.OFF
+                };
             let h, c = t.LogService = class extends n.Disposable {
-                get logLevel() {
-                    return this._logLevel
-                }
-
                 constructor(e) {
                     super(), this._optionsService = e, this._logLevel = o.LogLevelEnum.OFF, this._updateLogLevel(), this.register(this._optionsService.onSpecificOptionChange("logLevel", (() => this._updateLogLevel()))), h = this
+                }
+
+                get logLevel() {
+                    return this._logLevel
                 }
 
                 _updateLogLevel() {
@@ -6805,10 +6953,6 @@
                     this.register(e), this._active = e.version, this._activeProvider = e
                 }
 
-                dispose() {
-                    this._onChange.dispose()
-                }
-
                 get versions() {
                     return Object.keys(this._providers)
                 }
@@ -6820,6 +6964,10 @@
                 set activeVersion(e) {
                     if (!this._providers[e]) throw new Error(`unknown Unicode version "${e}"`);
                     this._active = e, this._activeProvider = this._providers[e], this._onChange.fire(e)
+                }
+
+                dispose() {
+                    this._onChange.dispose()
                 }
 
                 register(e) {
@@ -6873,12 +7021,8 @@
                 }
             }
 
-            _checkReadonlyOptions(e) {
-                if (l.includes(e)) throw new Error(`Option "${e}" can only be set in the constructor`)
-            }
-
-            _checkProposedApi() {
-                if (!this._core.optionsService.rawOptions.allowProposedApi) throw new Error("You must set the allowProposedApi option to true to use proposed API")
+            static get strings() {
+                return t
             }
 
             get onBell() {
@@ -6996,6 +7140,14 @@
 
             set options(e) {
                 for (const t in e) this._publicOptions[t] = e[t]
+            }
+
+            _checkReadonlyOptions(e) {
+                if (l.includes(e)) throw new Error(`Option "${e}" can only be set in the constructor`)
+            }
+
+            _checkProposedApi() {
+                if (!this._core.optionsService.rawOptions.allowProposedApi) throw new Error("You must set the allowProposedApi option to true to use proposed API")
             }
 
             blur() {
@@ -7121,10 +7273,6 @@
 
             loadAddon(e) {
                 this._addonManager.loadAddon(this, e)
-            }
-
-            static get strings() {
-                return t
             }
 
             _verifyIntegers(...e) {

@@ -8,6 +8,8 @@ jinja2
 loguru
 markupsafe
 numpy
+opencv-python
+opencv-contrib-python
 python-engineio
 python-socketio
 PySide6

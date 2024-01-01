@@ -68,7 +68,7 @@ class ScreenshotFrame(widget_base.Frame):
         self.background = converter.numpy_bgr_to_qpixmap(background)
 
         self.move(QPoint())
-        self.resize(QSize(800, 600))
+        # self.resize(QSize(800, 600))
         self.setScene(QGraphicsScene(QRect(QPoint(), screenshot.size())))
 
         widget_base.GraphicsPixmapItem(

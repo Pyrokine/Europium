@@ -53,7 +53,13 @@
 
     function o(t, e) {
         if ("function" != typeof e && null !== e) throw new TypeError("Super expression must either be null or a function");
-        t.prototype = Object.create(e && e.prototype, {constructor: {value: t, writable: !0, configurable: !0}}), Object.defineProperty(t, "prototype", {writable: !1}), e && a(t, e)
+        t.prototype = Object.create(e && e.prototype, {
+            constructor: {
+                value: t,
+                writable: !0,
+                configurable: !0
+            }
+        }), Object.defineProperty(t, "prototype", {writable: !1}), e && a(t, e)
     }
 
     function s(t) {
@@ -104,7 +110,14 @@
                 return c(t, arguments, s(this).constructor)
             }
 
-            return r.prototype = Object.create(t.prototype, {constructor: {value: r, enumerable: !1, writable: !0, configurable: !0}}), a(r, t)
+            return r.prototype = Object.create(t.prototype, {
+                constructor: {
+                    value: r,
+                    enumerable: !1,
+                    writable: !0,
+                    configurable: !0
+                }
+            }), a(r, t)
         }, h(t)
     }
 
@@ -196,7 +209,8 @@
     Object.keys(v).forEach((function (t) {
         g[v[t]] = t
     }));
-    var m, b = {type: "error", data: "parser error"}, k = "function" == typeof Blob || "undefined" != typeof Blob && "[object BlobConstructor]" === Object.prototype.toString.call(Blob),
+    var m, b = {type: "error", data: "parser error"},
+        k = "function" == typeof Blob || "undefined" != typeof Blob && "[object BlobConstructor]" === Object.prototype.toString.call(Blob),
         w = "function" == typeof ArrayBuffer, _ = function (t) {
             return "function" == typeof ArrayBuffer.isView ? ArrayBuffer.isView(t) : t && t.buffer instanceof ArrayBuffer
         }, A = function (t, e, n) {
@@ -218,7 +232,10 @@
     var B, S = "function" == typeof ArrayBuffer, N = function (t, e) {
         if ("string" != typeof t) return {type: "message", data: x(t, e)};
         var n = t.charAt(0);
-        return "b" === n ? {type: "message", data: L(t.substring(1), e)} : g[n] ? t.length > 1 ? {type: g[n], data: t.substring(1)} : {type: g[n]} : b
+        return "b" === n ? {type: "message", data: L(t.substring(1), e)} : g[n] ? t.length > 1 ? {
+            type: g[n],
+            data: t.substring(1)
+        } : {type: g[n]} : b
     }, L = function (t, e) {
         if (S) {
             var n = function (t) {
@@ -556,7 +573,8 @@
 
         return r(i, [{
             key: "create", value: function () {
-                var t, e = this, n = F(this.opts, "agent", "pfx", "key", "passphrase", "cert", "ca", "ciphers", "rejectUnauthorized", "autoUnref");
+                var t, e = this,
+                    n = F(this.opts, "agent", "pfx", "key", "passphrase", "cert", "ca", "ciphers", "rejectUnauthorized", "autoUnref");
                 n.xdomain = !!this.opts.xd;
                 var r = this.xhr = new nt(n);
                 try {
@@ -623,7 +641,9 @@
             return Promise.resolve().then(t)
         } : function (t, e) {
             return e(t, 0)
-        }, ct = I.WebSocket || I.MozWebSocket, ht = "undefined" != typeof navigator && "string" == typeof navigator.product && "reactnative" === navigator.product.toLowerCase(), ft = function (t) {
+        }, ct = I.WebSocket || I.MozWebSocket,
+        ht = "undefined" != typeof navigator && "string" == typeof navigator.product && "reactnative" === navigator.product.toLowerCase(),
+        ft = function (t) {
             o(i, t);
             var n = l(i);
 
@@ -837,7 +857,13 @@
             key: "createTransport", value: function (t) {
                 var e = i({}, this.opts.query);
                 e.EIO = 4, e.transport = t, this.id && (e.sid = this.id);
-                var n = i({}, this.opts, {query: e, socket: this, hostname: this.hostname, secure: this.secure, port: this.port}, this.opts.transportOptions[t]);
+                var n = i({}, this.opts, {
+                    query: e,
+                    socket: this,
+                    hostname: this.hostname,
+                    secure: this.secure,
+                    port: this.port
+                }, this.opts.transportOptions[t]);
                 return new pt[t](n)
             }
         }, {
@@ -1013,7 +1039,8 @@
     gt.protocol = 4, gt.protocol;
     var mt = "function" == typeof ArrayBuffer, bt = function (t) {
             return "function" == typeof ArrayBuffer.isView ? ArrayBuffer.isView(t) : t.buffer instanceof ArrayBuffer
-        }, kt = Object.prototype.toString, wt = "function" == typeof Blob || "undefined" != typeof Blob && "[object BlobConstructor]" === kt.call(Blob),
+        }, kt = Object.prototype.toString,
+        wt = "function" == typeof Blob || "undefined" != typeof Blob && "[object BlobConstructor]" === kt.call(Blob),
         _t = "function" == typeof File || "undefined" != typeof File && "[object FileConstructor]" === kt.call(File);
 
     function At(t) {
@@ -1222,288 +1249,289 @@
         }
     }
 
-    var Dt = Object.freeze({connect: 1, connect_error: 1, disconnect: 1, disconnecting: 1, newListener: 1, removeListener: 1}), Ut = function (t) {
-        o(a, t);
-        var n = l(a);
+    var Dt = Object.freeze({connect: 1, connect_error: 1, disconnect: 1, disconnecting: 1, newListener: 1, removeListener: 1}),
+        Ut = function (t) {
+            o(a, t);
+            var n = l(a);
 
-        function a(t, r, o) {
-            var s;
-            return e(this, a), (s = n.call(this)).connected = !1, s.recovered = !1, s.receiveBuffer = [], s.sendBuffer = [], s._queue = [], s._queueSeq = 0, s.ids = 0, s.acks = {}, s.flags = {}, s.io = t, s.nsp = r, o && o.auth && (s.auth = o.auth), s._opts = i({}, o), s.io._autoConnect && s.open(), s
-        }
+            function a(t, r, o) {
+                var s;
+                return e(this, a), (s = n.call(this)).connected = !1, s.recovered = !1, s.receiveBuffer = [], s.sendBuffer = [], s._queue = [], s._queueSeq = 0, s.ids = 0, s.acks = {}, s.flags = {}, s.io = t, s.nsp = r, o && o.auth && (s.auth = o.auth), s._opts = i({}, o), s.io._autoConnect && s.open(), s
+            }
 
-        return r(a, [{
-            key: "disconnected", get: function () {
-                return !this.connected
-            }
-        }, {
-            key: "subEvents", value: function () {
-                if (!this.subs) {
-                    var t = this.io;
-                    this.subs = [jt(t, "open", this.onopen.bind(this)), jt(t, "packet", this.onpacket.bind(this)), jt(t, "error", this.onerror.bind(this)), jt(t, "close", this.onclose.bind(this))]
+            return r(a, [{
+                key: "disconnected", get: function () {
+                    return !this.connected
                 }
-            }
-        }, {
-            key: "active", get: function () {
-                return !!this.subs
-            }
-        }, {
-            key: "connect", value: function () {
-                return this.connected || (this.subEvents(), this.io._reconnecting || this.io.open(), "open" === this.io._readyState && this.onopen()), this
-            }
-        }, {
-            key: "open", value: function () {
-                return this.connect()
-            }
-        }, {
-            key: "send", value: function () {
-                for (var t = arguments.length, e = new Array(t), n = 0; n < t; n++) e[n] = arguments[n];
-                return e.unshift("message"), this.emit.apply(this, e), this
-            }
-        }, {
-            key: "emit", value: function (t) {
-                if (Dt.hasOwnProperty(t)) throw new Error('"' + t.toString() + '" is a reserved event name');
-                for (var e = arguments.length, n = new Array(e > 1 ? e - 1 : 0), r = 1; r < e; r++) n[r - 1] = arguments[r];
-                if (n.unshift(t), this._opts.retries && !this.flags.fromQueue && !this.flags.volatile) return this._addToQueue(n), this;
-                var i = {type: Bt.EVENT, data: n, options: {}};
-                if (i.options.compress = !1 !== this.flags.compress, "function" == typeof n[n.length - 1]) {
-                    var o = this.ids++, s = n.pop();
-                    this._registerAckCallback(o, s), i.id = o
-                }
-                var a = this.io.engine && this.io.engine.transport && this.io.engine.transport.writable;
-                return this.flags.volatile && (!a || !this.connected) || (this.connected ? (this.notifyOutgoingListeners(i), this.packet(i)) : this.sendBuffer.push(i)), this.flags = {}, this
-            }
-        }, {
-            key: "_registerAckCallback", value: function (t, e) {
-                var n, r = this, i = null !== (n = this.flags.timeout) && void 0 !== n ? n : this._opts.ackTimeout;
-                if (void 0 !== i) {
-                    var o = this.io.setTimeoutFn((function () {
-                        delete r.acks[t];
-                        for (var n = 0; n < r.sendBuffer.length; n++) r.sendBuffer[n].id === t && r.sendBuffer.splice(n, 1);
-                        e.call(r, new Error("operation has timed out"))
-                    }), i);
-                    this.acks[t] = function () {
-                        r.io.clearTimeoutFn(o);
-                        for (var t = arguments.length, n = new Array(t), i = 0; i < t; i++) n[i] = arguments[i];
-                        e.apply(r, [null].concat(n))
+            }, {
+                key: "subEvents", value: function () {
+                    if (!this.subs) {
+                        var t = this.io;
+                        this.subs = [jt(t, "open", this.onopen.bind(this)), jt(t, "packet", this.onpacket.bind(this)), jt(t, "error", this.onerror.bind(this)), jt(t, "close", this.onclose.bind(this))]
                     }
-                } else this.acks[t] = e
-            }
-        }, {
-            key: "emitWithAck", value: function (t) {
-                for (var e = this, n = arguments.length, r = new Array(n > 1 ? n - 1 : 0), i = 1; i < n; i++) r[i - 1] = arguments[i];
-                var o = void 0 !== this.flags.timeout || void 0 !== this._opts.ackTimeout;
-                return new Promise((function (n, i) {
-                    r.push((function (t, e) {
-                        return o ? t ? i(t) : n(e) : n(t)
-                    })), e.emit.apply(e, [t].concat(r))
-                }))
-            }
-        }, {
-            key: "_addToQueue", value: function (t) {
-                var e, n = this;
-                "function" == typeof t[t.length - 1] && (e = t.pop());
-                var r = {id: this._queueSeq++, tryCount: 0, pending: !1, args: t, flags: i({fromQueue: !0}, this.flags)};
-                t.push((function (t) {
-                    if (r === n._queue[0]) {
-                        if (null !== t) r.tryCount > n._opts.retries && (n._queue.shift(), e && e(t)); else if (n._queue.shift(), e) {
-                            for (var i = arguments.length, o = new Array(i > 1 ? i - 1 : 0), s = 1; s < i; s++) o[s - 1] = arguments[s];
-                            e.apply(void 0, [null].concat(o))
+                }
+            }, {
+                key: "active", get: function () {
+                    return !!this.subs
+                }
+            }, {
+                key: "connect", value: function () {
+                    return this.connected || (this.subEvents(), this.io._reconnecting || this.io.open(), "open" === this.io._readyState && this.onopen()), this
+                }
+            }, {
+                key: "open", value: function () {
+                    return this.connect()
+                }
+            }, {
+                key: "send", value: function () {
+                    for (var t = arguments.length, e = new Array(t), n = 0; n < t; n++) e[n] = arguments[n];
+                    return e.unshift("message"), this.emit.apply(this, e), this
+                }
+            }, {
+                key: "emit", value: function (t) {
+                    if (Dt.hasOwnProperty(t)) throw new Error('"' + t.toString() + '" is a reserved event name');
+                    for (var e = arguments.length, n = new Array(e > 1 ? e - 1 : 0), r = 1; r < e; r++) n[r - 1] = arguments[r];
+                    if (n.unshift(t), this._opts.retries && !this.flags.fromQueue && !this.flags.volatile) return this._addToQueue(n), this;
+                    var i = {type: Bt.EVENT, data: n, options: {}};
+                    if (i.options.compress = !1 !== this.flags.compress, "function" == typeof n[n.length - 1]) {
+                        var o = this.ids++, s = n.pop();
+                        this._registerAckCallback(o, s), i.id = o
+                    }
+                    var a = this.io.engine && this.io.engine.transport && this.io.engine.transport.writable;
+                    return this.flags.volatile && (!a || !this.connected) || (this.connected ? (this.notifyOutgoingListeners(i), this.packet(i)) : this.sendBuffer.push(i)), this.flags = {}, this
+                }
+            }, {
+                key: "_registerAckCallback", value: function (t, e) {
+                    var n, r = this, i = null !== (n = this.flags.timeout) && void 0 !== n ? n : this._opts.ackTimeout;
+                    if (void 0 !== i) {
+                        var o = this.io.setTimeoutFn((function () {
+                            delete r.acks[t];
+                            for (var n = 0; n < r.sendBuffer.length; n++) r.sendBuffer[n].id === t && r.sendBuffer.splice(n, 1);
+                            e.call(r, new Error("operation has timed out"))
+                        }), i);
+                        this.acks[t] = function () {
+                            r.io.clearTimeoutFn(o);
+                            for (var t = arguments.length, n = new Array(t), i = 0; i < t; i++) n[i] = arguments[i];
+                            e.apply(r, [null].concat(n))
                         }
-                        return r.pending = !1, n._drainQueue()
-                    }
-                })), this._queue.push(r), this._drainQueue()
-            }
-        }, {
-            key: "_drainQueue", value: function () {
-                var t = arguments.length > 0 && void 0 !== arguments[0] && arguments[0];
-                if (this.connected && 0 !== this._queue.length) {
-                    var e = this._queue[0];
-                    e.pending && !t || (e.pending = !0, e.tryCount++, this.flags = e.flags, this.emit.apply(this, e.args))
+                    } else this.acks[t] = e
                 }
-            }
-        }, {
-            key: "packet", value: function (t) {
-                t.nsp = this.nsp, this.io._packet(t)
-            }
-        }, {
-            key: "onopen", value: function () {
-                var t = this;
-                "function" == typeof this.auth ? this.auth((function (e) {
-                    t._sendConnectPacket(e)
-                })) : this._sendConnectPacket(this.auth)
-            }
-        }, {
-            key: "_sendConnectPacket", value: function (t) {
-                this.packet({type: Bt.CONNECT, data: this._pid ? i({pid: this._pid, offset: this._lastOffset}, t) : t})
-            }
-        }, {
-            key: "onerror", value: function (t) {
-                this.connected || this.emitReserved("connect_error", t)
-            }
-        }, {
-            key: "onclose", value: function (t, e) {
-                this.connected = !1, delete this.id, this.emitReserved("disconnect", t, e)
-            }
-        }, {
-            key: "onpacket", value: function (t) {
-                if (t.nsp === this.nsp) switch (t.type) {
-                    case Bt.CONNECT:
-                        t.data && t.data.sid ? this.onconnect(t.data.sid, t.data.pid) : this.emitReserved("connect_error", new Error("It seems you are trying to reach a Socket.IO server in v2.x with a v3.x client, but they are not compatible (more information here: https://socket.io/docs/v3/migrating-from-2-x-to-3-0/)"));
-                        break;
-                    case Bt.EVENT:
-                    case Bt.BINARY_EVENT:
-                        this.onevent(t);
-                        break;
-                    case Bt.ACK:
-                    case Bt.BINARY_ACK:
-                        this.onack(t);
-                        break;
-                    case Bt.DISCONNECT:
-                        this.ondisconnect();
-                        break;
-                    case Bt.CONNECT_ERROR:
-                        this.destroy();
-                        var e = new Error(t.data.message);
-                        e.data = t.data.data, this.emitReserved("connect_error", e)
+            }, {
+                key: "emitWithAck", value: function (t) {
+                    for (var e = this, n = arguments.length, r = new Array(n > 1 ? n - 1 : 0), i = 1; i < n; i++) r[i - 1] = arguments[i];
+                    var o = void 0 !== this.flags.timeout || void 0 !== this._opts.ackTimeout;
+                    return new Promise((function (n, i) {
+                        r.push((function (t, e) {
+                            return o ? t ? i(t) : n(e) : n(t)
+                        })), e.emit.apply(e, [t].concat(r))
+                    }))
                 }
-            }
-        }, {
-            key: "onevent", value: function (t) {
-                var e = t.data || [];
-                null != t.id && e.push(this.ack(t.id)), this.connected ? this.emitEvent(e) : this.receiveBuffer.push(Object.freeze(e))
-            }
-        }, {
-            key: "emitEvent", value: function (t) {
-                if (this._anyListeners && this._anyListeners.length) {
-                    var e, n = y(this._anyListeners.slice());
-                    try {
-                        for (n.s(); !(e = n.n()).done;) {
-                            e.value.apply(this, t)
+            }, {
+                key: "_addToQueue", value: function (t) {
+                    var e, n = this;
+                    "function" == typeof t[t.length - 1] && (e = t.pop());
+                    var r = {id: this._queueSeq++, tryCount: 0, pending: !1, args: t, flags: i({fromQueue: !0}, this.flags)};
+                    t.push((function (t) {
+                        if (r === n._queue[0]) {
+                            if (null !== t) r.tryCount > n._opts.retries && (n._queue.shift(), e && e(t)); else if (n._queue.shift(), e) {
+                                for (var i = arguments.length, o = new Array(i > 1 ? i - 1 : 0), s = 1; s < i; s++) o[s - 1] = arguments[s];
+                                e.apply(void 0, [null].concat(o))
+                            }
+                            return r.pending = !1, n._drainQueue()
                         }
-                    } catch (t) {
-                        n.e(t)
-                    } finally {
-                        n.f()
+                    })), this._queue.push(r), this._drainQueue()
+                }
+            }, {
+                key: "_drainQueue", value: function () {
+                    var t = arguments.length > 0 && void 0 !== arguments[0] && arguments[0];
+                    if (this.connected && 0 !== this._queue.length) {
+                        var e = this._queue[0];
+                        e.pending && !t || (e.pending = !0, e.tryCount++, this.flags = e.flags, this.emit.apply(this, e.args))
                     }
                 }
-                p(s(a.prototype), "emit", this).apply(this, t), this._pid && t.length && "string" == typeof t[t.length - 1] && (this._lastOffset = t[t.length - 1])
-            }
-        }, {
-            key: "ack", value: function (t) {
-                var e = this, n = !1;
-                return function () {
-                    if (!n) {
-                        n = !0;
-                        for (var r = arguments.length, i = new Array(r), o = 0; o < r; o++) i[o] = arguments[o];
-                        e.packet({type: Bt.ACK, id: t, data: i})
+            }, {
+                key: "packet", value: function (t) {
+                    t.nsp = this.nsp, this.io._packet(t)
+                }
+            }, {
+                key: "onopen", value: function () {
+                    var t = this;
+                    "function" == typeof this.auth ? this.auth((function (e) {
+                        t._sendConnectPacket(e)
+                    })) : this._sendConnectPacket(this.auth)
+                }
+            }, {
+                key: "_sendConnectPacket", value: function (t) {
+                    this.packet({type: Bt.CONNECT, data: this._pid ? i({pid: this._pid, offset: this._lastOffset}, t) : t})
+                }
+            }, {
+                key: "onerror", value: function (t) {
+                    this.connected || this.emitReserved("connect_error", t)
+                }
+            }, {
+                key: "onclose", value: function (t, e) {
+                    this.connected = !1, delete this.id, this.emitReserved("disconnect", t, e)
+                }
+            }, {
+                key: "onpacket", value: function (t) {
+                    if (t.nsp === this.nsp) switch (t.type) {
+                        case Bt.CONNECT:
+                            t.data && t.data.sid ? this.onconnect(t.data.sid, t.data.pid) : this.emitReserved("connect_error", new Error("It seems you are trying to reach a Socket.IO server in v2.x with a v3.x client, but they are not compatible (more information here: https://socket.io/docs/v3/migrating-from-2-x-to-3-0/)"));
+                            break;
+                        case Bt.EVENT:
+                        case Bt.BINARY_EVENT:
+                            this.onevent(t);
+                            break;
+                        case Bt.ACK:
+                        case Bt.BINARY_ACK:
+                            this.onack(t);
+                            break;
+                        case Bt.DISCONNECT:
+                            this.ondisconnect();
+                            break;
+                        case Bt.CONNECT_ERROR:
+                            this.destroy();
+                            var e = new Error(t.data.message);
+                            e.data = t.data.data, this.emitReserved("connect_error", e)
                     }
                 }
-            }
-        }, {
-            key: "onack", value: function (t) {
-                var e = this.acks[t.id];
-                "function" == typeof e && (e.apply(this, t.data), delete this.acks[t.id])
-            }
-        }, {
-            key: "onconnect", value: function (t, e) {
-                this.id = t, this.recovered = e && this._pid === e, this._pid = e, this.connected = !0, this.emitBuffered(), this.emitReserved("connect"), this._drainQueue(!0)
-            }
-        }, {
-            key: "emitBuffered", value: function () {
-                var t = this;
-                this.receiveBuffer.forEach((function (e) {
-                    return t.emitEvent(e)
-                })), this.receiveBuffer = [], this.sendBuffer.forEach((function (e) {
-                    t.notifyOutgoingListeners(e), t.packet(e)
-                })), this.sendBuffer = []
-            }
-        }, {
-            key: "ondisconnect", value: function () {
-                this.destroy(), this.onclose("io server disconnect")
-            }
-        }, {
-            key: "destroy", value: function () {
-                this.subs && (this.subs.forEach((function (t) {
-                    return t()
-                })), this.subs = void 0), this.io._destroy(this)
-            }
-        }, {
-            key: "disconnect", value: function () {
-                return this.connected && this.packet({type: Bt.DISCONNECT}), this.destroy(), this.connected && this.onclose("io client disconnect"), this
-            }
-        }, {
-            key: "close", value: function () {
-                return this.disconnect()
-            }
-        }, {
-            key: "compress", value: function (t) {
-                return this.flags.compress = t, this
-            }
-        }, {
-            key: "volatile", get: function () {
-                return this.flags.volatile = !0, this
-            }
-        }, {
-            key: "timeout", value: function (t) {
-                return this.flags.timeout = t, this
-            }
-        }, {
-            key: "onAny", value: function (t) {
-                return this._anyListeners = this._anyListeners || [], this._anyListeners.push(t), this
-            }
-        }, {
-            key: "prependAny", value: function (t) {
-                return this._anyListeners = this._anyListeners || [], this._anyListeners.unshift(t), this
-            }
-        }, {
-            key: "offAny", value: function (t) {
-                if (!this._anyListeners) return this;
-                if (t) {
-                    for (var e = this._anyListeners, n = 0; n < e.length; n++) if (t === e[n]) return e.splice(n, 1), this
-                } else this._anyListeners = [];
-                return this
-            }
-        }, {
-            key: "listenersAny", value: function () {
-                return this._anyListeners || []
-            }
-        }, {
-            key: "onAnyOutgoing", value: function (t) {
-                return this._anyOutgoingListeners = this._anyOutgoingListeners || [], this._anyOutgoingListeners.push(t), this
-            }
-        }, {
-            key: "prependAnyOutgoing", value: function (t) {
-                return this._anyOutgoingListeners = this._anyOutgoingListeners || [], this._anyOutgoingListeners.unshift(t), this
-            }
-        }, {
-            key: "offAnyOutgoing", value: function (t) {
-                if (!this._anyOutgoingListeners) return this;
-                if (t) {
-                    for (var e = this._anyOutgoingListeners, n = 0; n < e.length; n++) if (t === e[n]) return e.splice(n, 1), this
-                } else this._anyOutgoingListeners = [];
-                return this
-            }
-        }, {
-            key: "listenersAnyOutgoing", value: function () {
-                return this._anyOutgoingListeners || []
-            }
-        }, {
-            key: "notifyOutgoingListeners", value: function (t) {
-                if (this._anyOutgoingListeners && this._anyOutgoingListeners.length) {
-                    var e, n = y(this._anyOutgoingListeners.slice());
-                    try {
-                        for (n.s(); !(e = n.n()).done;) {
-                            e.value.apply(this, t.data)
+            }, {
+                key: "onevent", value: function (t) {
+                    var e = t.data || [];
+                    null != t.id && e.push(this.ack(t.id)), this.connected ? this.emitEvent(e) : this.receiveBuffer.push(Object.freeze(e))
+                }
+            }, {
+                key: "emitEvent", value: function (t) {
+                    if (this._anyListeners && this._anyListeners.length) {
+                        var e, n = y(this._anyListeners.slice());
+                        try {
+                            for (n.s(); !(e = n.n()).done;) {
+                                e.value.apply(this, t)
+                            }
+                        } catch (t) {
+                            n.e(t)
+                        } finally {
+                            n.f()
                         }
-                    } catch (t) {
-                        n.e(t)
-                    } finally {
-                        n.f()
+                    }
+                    p(s(a.prototype), "emit", this).apply(this, t), this._pid && t.length && "string" == typeof t[t.length - 1] && (this._lastOffset = t[t.length - 1])
+                }
+            }, {
+                key: "ack", value: function (t) {
+                    var e = this, n = !1;
+                    return function () {
+                        if (!n) {
+                            n = !0;
+                            for (var r = arguments.length, i = new Array(r), o = 0; o < r; o++) i[o] = arguments[o];
+                            e.packet({type: Bt.ACK, id: t, data: i})
+                        }
                     }
                 }
-            }
-        }]), a
-    }(U);
+            }, {
+                key: "onack", value: function (t) {
+                    var e = this.acks[t.id];
+                    "function" == typeof e && (e.apply(this, t.data), delete this.acks[t.id])
+                }
+            }, {
+                key: "onconnect", value: function (t, e) {
+                    this.id = t, this.recovered = e && this._pid === e, this._pid = e, this.connected = !0, this.emitBuffered(), this.emitReserved("connect"), this._drainQueue(!0)
+                }
+            }, {
+                key: "emitBuffered", value: function () {
+                    var t = this;
+                    this.receiveBuffer.forEach((function (e) {
+                        return t.emitEvent(e)
+                    })), this.receiveBuffer = [], this.sendBuffer.forEach((function (e) {
+                        t.notifyOutgoingListeners(e), t.packet(e)
+                    })), this.sendBuffer = []
+                }
+            }, {
+                key: "ondisconnect", value: function () {
+                    this.destroy(), this.onclose("io server disconnect")
+                }
+            }, {
+                key: "destroy", value: function () {
+                    this.subs && (this.subs.forEach((function (t) {
+                        return t()
+                    })), this.subs = void 0), this.io._destroy(this)
+                }
+            }, {
+                key: "disconnect", value: function () {
+                    return this.connected && this.packet({type: Bt.DISCONNECT}), this.destroy(), this.connected && this.onclose("io client disconnect"), this
+                }
+            }, {
+                key: "close", value: function () {
+                    return this.disconnect()
+                }
+            }, {
+                key: "compress", value: function (t) {
+                    return this.flags.compress = t, this
+                }
+            }, {
+                key: "volatile", get: function () {
+                    return this.flags.volatile = !0, this
+                }
+            }, {
+                key: "timeout", value: function (t) {
+                    return this.flags.timeout = t, this
+                }
+            }, {
+                key: "onAny", value: function (t) {
+                    return this._anyListeners = this._anyListeners || [], this._anyListeners.push(t), this
+                }
+            }, {
+                key: "prependAny", value: function (t) {
+                    return this._anyListeners = this._anyListeners || [], this._anyListeners.unshift(t), this
+                }
+            }, {
+                key: "offAny", value: function (t) {
+                    if (!this._anyListeners) return this;
+                    if (t) {
+                        for (var e = this._anyListeners, n = 0; n < e.length; n++) if (t === e[n]) return e.splice(n, 1), this
+                    } else this._anyListeners = [];
+                    return this
+                }
+            }, {
+                key: "listenersAny", value: function () {
+                    return this._anyListeners || []
+                }
+            }, {
+                key: "onAnyOutgoing", value: function (t) {
+                    return this._anyOutgoingListeners = this._anyOutgoingListeners || [], this._anyOutgoingListeners.push(t), this
+                }
+            }, {
+                key: "prependAnyOutgoing", value: function (t) {
+                    return this._anyOutgoingListeners = this._anyOutgoingListeners || [], this._anyOutgoingListeners.unshift(t), this
+                }
+            }, {
+                key: "offAnyOutgoing", value: function (t) {
+                    if (!this._anyOutgoingListeners) return this;
+                    if (t) {
+                        for (var e = this._anyOutgoingListeners, n = 0; n < e.length; n++) if (t === e[n]) return e.splice(n, 1), this
+                    } else this._anyOutgoingListeners = [];
+                    return this
+                }
+            }, {
+                key: "listenersAnyOutgoing", value: function () {
+                    return this._anyOutgoingListeners || []
+                }
+            }, {
+                key: "notifyOutgoingListeners", value: function (t) {
+                    if (this._anyOutgoingListeners && this._anyOutgoingListeners.length) {
+                        var e, n = y(this._anyOutgoingListeners.slice());
+                        try {
+                            for (n.s(); !(e = n.n()).done;) {
+                                e.value.apply(this, t.data)
+                            }
+                        } catch (t) {
+                            n.e(t)
+                        } finally {
+                            n.f()
+                        }
+                    }
+                }
+            }]), a
+        }(U);
 
     function It(t) {
         t = t || {}, this.ms = t.min || 100, this.max = t.max || 1e4, this.factor = t.factor || 2, this.jitter = t.jitter > 0 && t.jitter <= 1 ? t.jitter : 0, this.attempts = 0
@@ -1690,7 +1718,8 @@
     function Vt(e, n) {
         "object" === t(e) && (n = e, e = void 0);
         var r, i = function (t) {
-            var e = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : "", n = arguments.length > 2 ? arguments[2] : void 0, r = t;
+            var e = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : "", n = arguments.length > 2 ? arguments[2] : void 0,
+                r = t;
             n = n || "undefined" != typeof location && location, null == t && (t = n.protocol + "//" + n.host), "string" == typeof t && ("/" === t.charAt(0) && (t = "/" === t.charAt(1) ? n.protocol + t : n.host + t), /^(https?|wss?):\/\//.test(t) || (t = void 0 !== n ? n.protocol + "//" + t : "https://" + t), r = vt(t)), r.port || (/^(http|ws)$/.test(r.protocol) ? r.port = "80" : /^(http|ws)s$/.test(r.protocol) && (r.port = "443")), r.path = r.path || "/";
             var i = -1 !== r.host.indexOf(":") ? "[" + r.host + "]" : r.host;
             return r.id = r.protocol + "://" + i + ":" + r.port + e, r.href = r.protocol + "://" + i + (n && n.port === r.port ? "" : ":" + r.port), r
