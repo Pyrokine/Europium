@@ -1,6 +1,11 @@
 import datetime
-from pathlib import Path
 import os
+from pathlib import Path
+from typing import Any
+
+from PySide6.QtCore import QMimeData, QUrl
+
+from common import widget_base
 
 
 class Time:
@@ -38,11 +43,11 @@ class ToggleBool:
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.__val = False
 
-    def set(self, val: bool):
+    def set(self, val: bool) -> None:
         self.__val = val
 
 
-def singleton(cls):
+def singleton(cls) -> Any:
     instances = {}
 
     def get_instance(*args, **kwargs):
@@ -74,5 +79,25 @@ def is_point_a_in_rec_b(a_x, a_y, b_left, b_right, b_top, b_bottom) -> bool:
         return False
 
 
-def join_path(*args):
-    return Path(os.path.join(*args)).as_posix()
+def join_path(*args) -> str:
+    return Path(str(os.path.join(*args))).as_posix()
+
+
+def is_file_url(string: str) -> bool:
+    url = QUrl(string)
+    return url.isLocalFile() and url.scheme() == 'file'
+
+
+def copy_mime_data(mime: QMimeData, customized: bool) -> QMimeData:
+    new_mime = widget_base.MimeData() if customized else QMimeData()
+
+    for mime_type in mime.formats():
+        new_mime.setData(mime_type, mime.data(mime_type))
+
+    new_mime.setText(mime.text())
+    new_mime.setImageData(mime.imageData())
+    new_mime.setHtml(mime.html())
+    new_mime.setUrls(mime.urls())
+    new_mime.setColorData(mime.colorData())
+
+    return new_mime

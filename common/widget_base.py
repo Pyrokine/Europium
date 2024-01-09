@@ -6,9 +6,9 @@ from enum import Enum, unique, auto
 from typing import List, Dict, Set, Union, Callable, TypedDict, Optional, Any, cast
 
 import loguru
-from PySide6.QtCore import Signal, Qt, QSize, QPoint, QRect, QPointF
+from PySide6.QtCore import Signal, Qt, QSize, QPoint, QRect, QPointF, QMimeData
 from PySide6.QtGui import (QImage, QPixmap, QCursor, QKeyEvent, QMouseEvent, QPaintEvent, QFontMetrics, QAction, QContextMenuEvent,
-                           QPainter, QResizeEvent)
+                           QPainter, QResizeEvent, QDragEnterEvent, QDragMoveEvent, QDragLeaveEvent, QDropEvent)
 from PySide6.QtWebEngineWidgets import QWebEngineView
 from PySide6.QtWidgets import (QWidget, QPushButton, QTreeWidget, QTreeWidgetItem, QTableWidget, QTabWidget, QCheckBox, QLineEdit,
                                QPlainTextEdit, QHeaderView, QAbstractItemView, QGraphicsItem, QGraphicsScene, QGraphicsView,
@@ -21,7 +21,7 @@ import pipeline
 import widgets
 
 from config import Config
-from common import common
+from common import common, converter
 
 
 ####################################################################################################
@@ -34,6 +34,10 @@ class Frame(QGraphicsView):
     signalMousePress = Signal(object)
     signalMouseMove = Signal(object)
     signalMouseRelease = Signal(object)
+    signalDragEnter = Signal(object)
+    signalDragMove = Signal(object)
+    signalDragLeave = Signal(object)
+    signalDrop = Signal(object)
     signalResize = Signal(object)
 
     def __init__(self,
@@ -48,6 +52,7 @@ class Frame(QGraphicsView):
             Qt.WindowType.CustomizeWindowHint
         )
         self.setMouseTracking(True)
+        self.setAcceptDrops(True)
         self.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
         self.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
         self.setStyleSheet('background-color: {0};'.format(Config.Main().background_color))
@@ -56,8 +61,6 @@ class Frame(QGraphicsView):
         self.setScene(QGraphicsScene(self.rect()))
         self.resize(size)
 
-        self.mime_data = {}
-        self.mime_idx = 0
         self.render_data = {}  # idx -> obj, store all the data needed to be rendered
         self.render_idx = 0  # play the role as uuid
         self.widgets = {}
@@ -139,6 +142,18 @@ class Frame(QGraphicsView):
         self.signalMouseRelease.emit(event)
         super().mouseReleaseEvent(event)
 
+    def dragEnterEvent(self, event: QDragEnterEvent) -> None:
+        self.signalDragEnter.emit(event)
+
+    def dragMoveEvent(self, event: QDragMoveEvent) -> None:
+        self.signalDragMove.emit(event)
+
+    def dragLeaveEvent(self, event: QDragLeaveEvent) -> None:
+        self.signalDragLeave.emit(event)
+
+    def dropEvent(self, event: QDropEvent) -> None:
+        self.signalDrop.emit(event)
+
     def resizeEvent(self, event: QResizeEvent) -> None:
         self.signalResize.emit(event)
         super().resizeEvent(event)
@@ -152,9 +167,13 @@ class Frame(QGraphicsView):
         self.setCursor(self.cursor_shape_stack[-1])
 
     def add_object(self, obj: 'Object') -> Any:
-        self.widget_object_manager.add_to_render_data(obj)
-        self.children_objects.add(obj)
-        return obj
+        if obj in self.children_objects:
+            self.logger.error('object is already here, render_idx = {0}'.format(obj.render_idx))
+            return None
+        else:
+            self.widget_object_manager.add_to_render_data(obj)
+            self.children_objects.add(obj)
+            return obj
 
     def remove_object(self, obj: 'Object') -> None:
         if obj in self.children_objects:
@@ -212,6 +231,25 @@ class Action(QAction):
             self.setIcon(icon)
 
         self.triggered.connect(func.click_func)
+
+
+@unique
+class RenderType(Enum):
+    RENDER_TYPE_PLAIN_TEXT = auto()
+    RENDER_TYPE_QIMAGE = auto()
+
+
+class RenderData:
+    def __init__(self, content, render_type: RenderType):
+        self.content = content
+        self.render_type = render_type
+
+
+class MimeData(QMimeData):
+    def __init__(self):
+        super().__init__()
+
+        self.render_list: List[RenderData] = []
 
 
 class SubObjectMenu(QMenu):
@@ -337,11 +375,15 @@ class SubObject:
         self.bounding_rect.hide()
 
     def add_object(self, obj: Union['SubObject', 'EmbeddedObject', 'Object']) -> Any:
-        self.frame.widget_object_manager.add_to_render_data(obj)
-        self.children_objects.add(obj)
-        obj.parent_object = self
+        if obj in self.children_objects:
+            self.frame.logger.error('object is already here, render_idx = {0}'.format(obj.render_idx))
+            return None
+        else:
+            self.frame.widget_object_manager.add_to_render_data(obj)
+            self.children_objects.add(obj)
+            obj.parent_object = self
 
-        return obj
+            return obj
 
     def remove_object(self, obj: Union['SubObject', 'EmbeddedObject', 'Object']) -> None:
         if obj in self.children_objects:
@@ -404,11 +446,15 @@ class EmbeddedObject:
             super().deleteLater()
 
     def add_object(self, obj: Union[SubObject, 'EmbeddedObject', 'Object']) -> Any:
-        self.frame.widget_object_manager.add_to_render_data(obj)
-        self.children_objects.add(obj)
-        obj.parent_object = self
+        if obj in self.children_objects:
+            self.frame.logger.error('object is already here, render_idx = {0}'.format(obj.render_idx))
+            return None
+        else:
+            self.frame.widget_object_manager.add_to_render_data(obj)
+            self.children_objects.add(obj)
+            obj.parent_object = self
 
-        return obj
+            return obj
 
     def remove_object(self, obj: Union[SubObject, 'EmbeddedObject', 'Object']) -> None:
         if obj in self.children_objects:
@@ -432,6 +478,8 @@ class Object(QWidget):
         self.setObjectName('base_object')
         self.frame = frame
         self.render_idx = render_idx
+
+        self.mime = QMimeData()
 
         if isinstance(pos, QPoint):
             self.global_pos: QPoint = pos
@@ -478,11 +526,15 @@ class Object(QWidget):
         pass
 
     def add_object(self, obj: Union[SubObject, EmbeddedObject, 'Object']) -> Any:
-        self.frame.widget_object_manager.add_to_render_data(obj)
-        self.children_objects.add(obj)
-        obj.parent_object = self
+        if obj in self.children_objects:
+            self.frame.logger.error('object is already here, render_idx = {0}'.format(obj.render_idx))
+            return None
+        else:
+            self.frame.widget_object_manager.add_to_render_data(obj)
+            self.children_objects.add(obj)
+            obj.parent_object = self
 
-        return obj
+            return obj
 
     def remove_object(self, obj: Union[SubObject, EmbeddedObject, 'Object']) -> None:
         if obj in self.children_objects:
@@ -1541,6 +1593,13 @@ class Text(PushButton):
         self.widget_clipboard: Any = self.frame.load_widget(self, 'widget_clipboard')
         self.menu = TextMenu(self)
 
+        self.menu.addAction(Action(
+            menu=self.menu,
+            text='Copy Mime',
+            func=Func('Copy Mime', click_func=lambda: self.widget_clipboard.set_mime(
+                common.copy_mime_data(self.frame.widget_object_manager.get_grandfather_object(self).mime, customized=True)))
+        ))
+
         self.reset()
 
     def set_style_sheet(self, is_select: bool) -> None:
@@ -1598,8 +1657,7 @@ class Image(PushButton):
 
     def resize_bounding_rect(self, size: QSize) -> None:
         with self.is_resizing:
-            self.scaled_image = self.content.scaled(
-                size, aspectMode=Qt.AspectRatioMode.KeepAspectRatio, mode=Qt.TransformationMode.SmoothTransformation)
+            self.scaled_image = converter.resize_image(self.content, size)
 
 
 ####################################################################################################

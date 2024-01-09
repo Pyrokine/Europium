@@ -72,7 +72,6 @@ class Widget(widget_base.WidgetBase):
 
         obj = widget_base.Object(frame or self.frame, pos, self.frame.render_idx)
         obj.frame.add_object(obj)
-        self.add_to_render_data(obj)
 
         return obj
 
@@ -103,3 +102,12 @@ class Widget(widget_base.WidgetBase):
     def render_tree(self) -> None:
         obj = self.generate_object()
         ObjectManager(self.frame, obj)
+
+    def get_grandfather_object(self,
+                               obj: Union[widget_base.SubObject, widget_base.EmbeddedObject, widget_base.Object]) -> widget_base.Object:
+        if isinstance(obj, widget_base.Object):
+            return obj
+        elif obj.parent_object:
+            return self.get_grandfather_object(obj.parent_object)
+        else:
+            self.frame.logger.error('Cannot get grandfather object')

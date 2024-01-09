@@ -1,4 +1,11 @@
 # Europium
-哼
 
-sudo apt-get install '^libxcb.*-dev' libx11-xcb-dev libglu1-mesa-dev libxrender-dev libxi-dev libxkbcommon-dev libxkbcommon-x11-dev
+## 简介
+基于 PySide6 实现的一些小工具，但，是 demo
+
+## 安装
+需要 python3 环境，安装依赖后即可使用
+```bash
+pip3 install -r requirements.txt
+python3 main.py
+```

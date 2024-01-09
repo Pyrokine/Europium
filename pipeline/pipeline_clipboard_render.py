@@ -1,5 +1,7 @@
-from common import widget_base, pipeline_base
-from widgets import widget_clipboard, widget_parser, widget_qq_helper, widget_render
+from common import widget_base, pipeline_base, common, converter
+from widgets import widget_clipboard, widget_render
+
+from PySide6.QtCore import QMimeData
 
 
 class Pipeline(pipeline_base.PipelineBase):
@@ -10,8 +12,6 @@ class Pipeline(pipeline_base.PipelineBase):
         self.is_auto_start = True
 
         self.widget_clipboard: widget_clipboard.Widget = widget_clipboard.Widget(frame)
-        self.widget_parser: widget_parser.Widget = widget_parser.Widget(frame)
-        self.widget_qq_helper: widget_qq_helper.Widget = widget_qq_helper.Widget(frame)
         self.widget_render: widget_render.Widget = widget_render.Widget(frame)
 
         self.reset()
@@ -22,8 +22,13 @@ class Pipeline(pipeline_base.PipelineBase):
     def disable_widget(self):
         self.widget_clipboard.signalClipboardPaste.disconnect(self.clipboard_render)
 
-    def clipboard_render(self, idx: int):
-        mime = self.frame.mime_data[idx]
-        text_image = self.widget_parser.extract_text_image_from_mime_data(mime['mime'])
-        text_image = self.widget_qq_helper.extract_qq_image_from_text_image(text_image)
-        self.widget_render.render_text_image(text_image)
+    def clipboard_render(self, mime: QMimeData):
+        mime = self.widget_clipboard.mime_generate_render_list(mime)
+
+        for idx, render_data in enumerate(mime.render_list):
+            if render_data.render_type == widget_base.RenderType.RENDER_TYPE_PLAIN_TEXT and common.is_file_url(render_data.content):
+                mime.render_list[idx].content = converter.string_to_file_path(render_data.content)
+            elif render_data.render_type == widget_base.RenderType.RENDER_TYPE_QIMAGE:
+                mime.render_list[idx].content = converter.create_thumbnail(render_data.content)
+
+        self.widget_render.render_to_frame(mime)

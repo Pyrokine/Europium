@@ -1,3 +1,6 @@
+from PySide6.QtCore import QSize
+
+
 class Config:
     class Main:
         def __init__(self):
@@ -34,3 +37,7 @@ class Config:
         class CSS:
             def __init__(self):
                 self.line_height = 30
+
+    class Converter:
+        def __init__(self):
+            self.thumbnail_size = QSize(300, 200)

@@ -1,6 +1,9 @@
-from PySide6.QtGui import QImage, QPixmap
+from typing import Union
+from config import Config
+
 import numpy as np
-import cv2
+from PySide6.QtCore import Qt, QSize, QUrl
+from PySide6.QtGui import QImage, QPixmap
 
 
 def qimage_to_qpixmap(image: QImage) -> QPixmap:
@@ -29,3 +32,19 @@ def numpy_bgr_to_qpimage(image: np.array) -> QImage:
 
 def numpy_bgr_to_qpixmap(image: np.array) -> QPixmap:
     return QPixmap.fromImage(numpy_bgr_to_qpimage(image))
+
+
+def resize_image(image: Union[QImage, QPixmap],
+                 size: QSize,
+                 aspect_ratio_mode: Qt.AspectRatioMode = Qt.AspectRatioMode.KeepAspectRatio,
+                 transformation_mode: Qt.TransformationMode = Qt.TransformationMode.SmoothTransformation) -> Union[QImage, QPixmap]:
+    return image.scaled(size, aspectMode=aspect_ratio_mode, mode=transformation_mode)
+
+
+def create_thumbnail(image: Union[QImage, QPixmap]) -> Union[QImage, QPixmap]:
+    return resize_image(image, Config.Converter().thumbnail_size)
+
+
+def string_to_file_path(string: str) -> str:
+    url = QUrl(string)
+    return url.toLocalFile()

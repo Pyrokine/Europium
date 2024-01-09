@@ -15,5 +15,5 @@ python-socketio
 PySide6
 pandas
 paramiko
-pywinpty
+pywinpty; platform_system == "Windows"
 werkzeug
