@@ -27,7 +27,7 @@ class Pipeline(pipeline_base.PipelineBase):
 
         for idx, render_data in enumerate(mime.render_list):
             if render_data.render_type == widget_base.RenderType.RENDER_TYPE_PLAIN_TEXT and common.is_file_url(render_data.content):
-                mime.render_list[idx].content = converter.string_to_file_path(render_data.content)
+                mime.render_list[idx].content = converter.file_url_to_file_path(render_data.content)
             elif render_data.render_type == widget_base.RenderType.RENDER_TYPE_QIMAGE:
                 mime.render_list[idx].content = converter.create_thumbnail(render_data.content)
 

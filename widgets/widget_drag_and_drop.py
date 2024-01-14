@@ -1,9 +1,8 @@
-import copy
-
-from PySide6.QtCore import Qt, QPoint, QMimeData
+from PySide6.QtCore import QPoint, QFileInfo
 from PySide6.QtGui import QDragEnterEvent, QDragMoveEvent, QDragLeaveEvent, QDropEvent
+from PySide6.QtWidgets import QFileIconProvider
 
-from common import common, widget_base
+from common import common, widget_base, converter
 
 
 @common.singleton
@@ -47,7 +46,17 @@ class Widget(widget_base.WidgetBase):
 
         obj: widget_base.Object = self.frame.widget_object_manager.generate_object()
         obj.mime = common.copy_mime_data(mime, customized=True)
-
         pos_x, pos_y = obj.global_pos.x(), obj.global_pos.y()
-        text = obj.add_object(widget_base.Text(obj=obj, pos=QPoint(pos_x, pos_y), text=obj.mime.text()))
+
+        file_path = obj.mime.text()
+
+        if common.is_file_url(file_path):
+            file_path = converter.file_url_to_file_path(file_path)
+            file_info = QFileInfo(file_path)
+            file_icon_provider = QFileIconProvider()
+            file_icon = file_icon_provider.icon(file_info)
+        else:
+            file_icon = None
+
+        text: widget_base.Text = obj.add_object(widget_base.Text(obj=obj, pos=QPoint(pos_x, pos_y), text=file_path, icon=file_icon))
         pass

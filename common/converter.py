@@ -45,6 +45,6 @@ def create_thumbnail(image: Union[QImage, QPixmap]) -> Union[QImage, QPixmap]:
     return resize_image(image, Config.Converter().thumbnail_size)
 
 
-def string_to_file_path(string: str) -> str:
+def file_url_to_file_path(string: str) -> str:
     url = QUrl(string)
     return url.toLocalFile()

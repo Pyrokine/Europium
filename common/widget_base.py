@@ -8,7 +8,7 @@ from typing import List, Dict, Set, Union, Callable, TypedDict, Optional, Any, c
 import loguru
 from PySide6.QtCore import Signal, Qt, QSize, QPoint, QRect, QPointF, QMimeData
 from PySide6.QtGui import (QImage, QPixmap, QCursor, QKeyEvent, QMouseEvent, QPaintEvent, QFontMetrics, QAction, QContextMenuEvent,
-                           QPainter, QResizeEvent, QDragEnterEvent, QDragMoveEvent, QDragLeaveEvent, QDropEvent)
+                           QPainter, QResizeEvent, QDragEnterEvent, QDragMoveEvent, QDragLeaveEvent, QDropEvent, QIcon)
 from PySide6.QtWebEngineWidgets import QWebEngineView
 from PySide6.QtWidgets import (QWidget, QPushButton, QTreeWidget, QTreeWidgetItem, QTableWidget, QTabWidget, QCheckBox, QLineEdit,
                                QPlainTextEdit, QHeaderView, QAbstractItemView, QGraphicsItem, QGraphicsScene, QGraphicsView,
@@ -1569,6 +1569,7 @@ class Text(PushButton):
                  obj: Union[SubObject, EmbeddedObject, Object],
                  pos: Union[QPoint, RelativePos],
                  text: str,
+                 icon: QIcon = None,
                  size: QSize = None,
                  is_default_select: bool = False,
                  is_changeable: bool = True,
@@ -1584,6 +1585,8 @@ class Text(PushButton):
                          func_unselect=func_unselect)
 
         self.setText(text)
+        if icon:
+            self.setIcon(icon)
         if size:
             self.resize(size)
         else:
